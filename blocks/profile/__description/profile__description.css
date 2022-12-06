@@ -1,0 +1,5 @@
+.profile__description {
+    margin: 22px 0 16px 30px;
+    display: flex;
+    max-height: 39px;
+}
