@@ -18,6 +18,7 @@
 @import url(../blocks/popup/__subline-info/popup__subline-info.css);
 @import url(../blocks/popup/__name/popup__name.css);
 @import url(../blocks/popup/__subline/popup__subline.css);
+@import url(../blocks/popup/__input/popup__input.css);
 
     /* Header */
 @import url(../blocks/header/header.css);

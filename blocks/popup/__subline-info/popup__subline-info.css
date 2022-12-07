@@ -1,5 +1,6 @@
 .popup__subline-info {
+    padding: 0;
+    margin: 0 auto 48px;
     width: 358px;
     border: none;
-    margin-bottom: 48px;
 }
