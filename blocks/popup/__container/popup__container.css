@@ -10,7 +10,6 @@
     border-radius: 10px;
 }
 
-
 @media screen and (max-width: 767px) {
     .popup__container { 
         left: calc((100% - 282px)/2);
