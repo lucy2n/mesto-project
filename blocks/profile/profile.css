@@ -1,5 +1,6 @@
 .profile {
     max-width: 880px;
+    max-height: 120px;
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
