@@ -6,4 +6,16 @@
     color: #FFFFFF;
     margin-left: 30px;
     margin-bottom: 25px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
+
+@media screen and (max-width: 767px) {
+    .profile__author-subline {
+        font-size: 14px;
+        line-height: 17px;
+        text-align: center;
+        margin-bottom: 0;
+    }
+} 

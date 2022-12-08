@@ -5,7 +5,6 @@
     left: calc((100% - 430px)/2);
     top: calc((100% - 330px)/2);
     max-width: 430px;
-    max-height: 330px;
     background: #FFFFFF;
     border-radius: 10px;
 }
@@ -15,6 +14,5 @@
         left: calc((100% - 282px)/2);
         top: calc((100% - 322px)/2);
         max-width: 282px;
-        max-height: 322px;
     }
 }
