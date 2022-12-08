@@ -33,8 +33,8 @@
 @import url(../blocks/edit-button/edit-button.css);
 @import url(../blocks/like-button/like-button.css);
 @import url(../blocks/like-button/_active/like-button_active.css);
-@import url(../blocks/save__button/save__button.css);
-
+@import url(../blocks/submit-button/submit-button.css);
+@import url(../blocks/close-button/close-button.css);
 
     /* Profile */
 @import url(../blocks/profile/profile.css);

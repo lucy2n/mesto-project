@@ -1,0 +1,25 @@
+.close-button {
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    min-width: 32px;
+    min-height: 32px;
+    position: fixed;
+    left: calc(((100% - 430px)/2) + 438px);
+    top: calc(((100% - 322px)/2) - 40px);
+    background-image: url(../../images/close-button-l.svg);
+}
+
+.close-button:hover {
+    opacity: 0.8;
+}
+
+@media screen and (max-width: 767px) {
+    .close-button { 
+        left: calc(((100% - 282px)/2) + 262px);
+        top: calc(((100% - 322px)/2) - 36px);
+        min-width: 20px;
+        min-height: 20px;
+        background-size: cover;
+    }
+}

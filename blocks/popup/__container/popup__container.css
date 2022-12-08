@@ -4,8 +4,18 @@
     position: fixed;
     left: calc((100% - 430px)/2);
     top: calc((100% - 330px)/2);
-    min-width: 430px;
-    min-height: 330px;
+    max-width: 430px;
+    max-height: 330px;
     background: #FFFFFF;
     border-radius: 10px;
+}
+
+
+@media screen and (max-width: 767px) {
+    .popup__container { 
+        left: calc((100% - 282px)/2);
+        top: calc((100% - 322px)/2);
+        max-width: 282px;
+        max-height: 322px;
+    }
 }
