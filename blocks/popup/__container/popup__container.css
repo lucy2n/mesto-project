@@ -2,17 +2,17 @@
     display: flex;
     flex-direction: column;
     position: fixed;
-    left: calc((100% - 430px)/2);
-    top: calc((100% - 330px)/2);
+
+
     max-width: 430px;
     background: #FFFFFF;
     border-radius: 10px;
+    z-index: 2;
 }
+
 
 @media screen and (max-width: 767px) {
     .popup__container { 
-        left: calc((100% - 282px)/2);
-        top: calc((100% - 322px)/2);
         max-width: 282px;
     }
 }
