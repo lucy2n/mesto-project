@@ -7,8 +7,9 @@
     background-image: url(../../../images/close-button-l.svg);
     z-index: 2;
 
-    margin-left: calc(32px + 12px + 430px);    
-    margin-bottom: calc(32px + 12px + 330px);
+    position: absolute;
+    right: -40px;
+    top: -40px;
 }
 
 .popup__close-button:hover {
@@ -23,7 +24,7 @@
         min-height: 20px;
         background-size: cover;
 
-        margin-left: calc(282px - 20px);    
-        margin-bottom: calc(20px + 30px + 322px);
+        top: -36px;
+        right: 0;
     }
 }
