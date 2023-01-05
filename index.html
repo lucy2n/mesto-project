@@ -75,16 +75,29 @@
     <footer class="footer page__footer">
       <p class="footer__copyright">© 2020 Mesto Russia</p>
     </footer>
-    <div class="popup">
+    <div class="popup" id="popup-edit">
       <form name="edit-profile" action="#" class="popup__container">
         <button type="button" class="popup__close-button"></button>
         <h3 class="popup__heading">Редактировать профиль</h3>
         <fieldset class="popup__edit-info">
-          <input class="popup__input" name="name-info" type="text" value="Жак-Ив Кусто">
-          <input class="popup__input" name="subline-info" type="text" value="Исследователь океана">
+          <input class="popup__input" id = "name-info" name="name-info" type="text" placeholder="Имя">
+          <input class="popup__input" id ="subline-info" name="subline-info" type="text" placeholder="Профессия">
         </fieldset>
         <button type="submit" class="popup__submit-button">Сохранить</button>
       </form>
     </div>
+    <div class="popup" id="popup-add">
+      <form name="add-cards" id="add-cards" action="#" class="popup__container">
+        <button type="button" class="popup__close-button"></button>
+        <h3 class="popup__heading">Новое место</h3>
+        <fieldset class="popup__edit-info">
+          <input class="popup__input" id = "name-card" name="name-card" type="text" placeholder="Название">
+          <input class="popup__input" id ="link-card" name="link-card" type="text" placeholder="Ссылка на картинку">
+        </fieldset>
+        <button type="submit" class="popup__submit-button">Создать</button>
+      </form>
+      
+    </div>
+  <script src="script.js"></script>
 </body>
 </html>
