@@ -27,49 +27,7 @@
           </div>
           <button type="button" class="profile__add-button"></button>
         </section>
-        <section class="elements page__elements">
-          <div class="element">
-            <img src="images/karachevsk.jpg" alt="Карачаевск" class="element__image">
-            <div class="element__info">
-              <h3 class="element__title">Карачаевск</h3>
-              <button type="button" class="element__like-button"></button>
-            </div>
-          </div>
-          <div class="element">
-            <img src="images/elbrus.jpg" alt="Гора Эльбрус" class="element__image">
-            <div class="element__info">
-              <h3 class="element__title">Гора Эльбрус</h3>
-              <button type="button" class="element__like-button"></button>
-            </div>
-          </div>
-          <div class="element">
-            <img src="images/dombai.jpg" alt="Домбай" class="element__image">
-            <div class="element__info">
-              <h3 class="element__title">Домбай</h3>
-              <button type="button" class="element__like-button"></button>
-            </div>
-          </div>
-          <div class="element">
-            <img src="images/elbrus.jpg" alt="Гора Эльбрус" class="element__image">
-            <div class="element__info">
-              <h3 class="element__title">Гора Эльбрус</h3>
-              <button type="button" class="element__like-button"></button>
-            </div>
-          </div>
-          <div class="element">
-            <img src="images/dombai.jpg" alt="Домбай" class="element__image">
-            <div class="element__info">
-              <h3 class="element__title">Домбай</h3>
-              <button type="button" class="element__like-button"></button>
-            </div>
-          </div>
-          <div class="element">
-            <img src="images/karachevsk.jpg" alt="Карачаевск" class="element__image">
-            <div class="element__info">
-              <h3 class="element__title">Карачаевск</h3>
-              <button type="button" class="element__like-button"></button>
-            </div>
-          </div>
+        <section class="elements page__elements">  
         </section>
     </main>
     <footer class="footer page__footer">
@@ -80,7 +38,7 @@
         <button type="button" class="popup__close-button"></button>
         <h3 class="popup__heading">Редактировать профиль</h3>
         <fieldset class="popup__edit-info">
-          <input class="popup__input" id = "name-info" name="name-info" type="text" placeholder="Имя">
+          <input class="popup__input" id ="name-info" name="name-info" type="text" placeholder="Имя">
           <input class="popup__input" id ="subline-info" name="subline-info" type="text" placeholder="Профессия">
         </fieldset>
         <button type="submit" class="popup__submit-button">Сохранить</button>
@@ -96,8 +54,16 @@
         </fieldset>
         <button type="submit" class="popup__submit-button">Создать</button>
       </form>
-      
     </div>
+    <template id="card-template">
+      <div class="element">
+        <button type="button" class="element__trash-button"></button>
+        <img alt="Карачаевск" class="element__image">
+        <div class="element__info">
+          <h3 class="element__title"></h3>
+          <button type="button" class="element__like-button"></button>
+        </div>
+    </template>
   <script src="script.js"></script>
 </body>
 </html>
