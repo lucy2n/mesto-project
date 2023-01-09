@@ -97,3 +97,36 @@ function formSubmitAdd (evt) {
 
 const addFormElement = addPopup.querySelector('.popup__container');
 addFormElement.addEventListener('submit', formSubmitAdd);
+
+
+const initialCards = [
+    {
+      name: 'Закат в Криничном',
+      link: 'https://sun9-27.userapi.com/impg/zee_qL_aXO42k7PX8DDp58vCaKAk4RNlbOeTOQ/CxYUbv1d5C8.jpg?size=1620x2160&quality=96&sign=430132b974d5c72014744a6f7cf38be8&type=album'
+    },
+    {
+      name: 'Жизнь и JS',
+      link: 'https://psv4.userapi.com/c240331/u172308308/docs/d59/3cbc811f879c/pain-min.png?extra=s4P66Hd_mj_f_wmn-8CfKlAEq1T-_dS_-t278gy5ePAHXfwGScXvPoSJuvWyTgFDlGt6LzOBdtb1yIYUnjVHzk3rPhMAN7jvaV32rX0GOipdT47VKz0_K2bSXE5Q7qWv-nu9efozBz42jO_ZkNIyOxdZTQ'
+    },
+    {
+      name: 'Шашлычок 1 января',
+      link: 'https://psv4.userapi.com/c240331/u172308308/docs/d2/d3e9989b9339/meat-min.png?extra=gTkOwdZtj_w6rKJrcTukhXBJ3RdNTmKAgikNELa0zFuKuw4fmvzRdWkcM0Oq7yQ9nYeGm22TCoYYABAJGO61SCsL-f4nWvZNFlML_P-jilPuZGR8_ToxqdmvwlO9wZAJjZEFgwhHXYCj0OIrYxEN7VMejA'
+    },
+    {
+      name: 'Caviar',
+      link: 'https://psv4.userapi.com/c240331/u172308308/docs/d58/ce034cb7dca8/caviar-min.png?extra=sr1O0bIk7wyC_aUsm3atcklEZsms8YF9ST0xyuSKgT7paW3CRa8SEFUtywUd5HZ-1SOB5x_n6RpMczGhrFOxLMPr6iwcK9DLtc9mfPFKCw43uSKwx9gsJ_EgInII180AZTwkuqNsILTjK2MIvRr0wI7cWQ'
+    },
+    {
+      name: 'Кот Яша',
+      link: 'https://psv4.userapi.com/c240331/u172308308/docs/d13/10fb67921a70/cat-min.png?extra=Rl9_ix428we2VdxWVWF3GvYw4-ovUC4Iv2tuybo-DCLowswc2XbmtS6I7Az1ucxkJ2GuHGqmLh4lfm_3gCKbj4GwGU6A8fxUSdqY6eP7WAKfN3lo6iqUs6iew_3W9AnqR7gHHzy9iAzSzWy69ktSaM97iA'
+    },
+    {
+      name: 'Ёлочка зимой',
+      link: 'https://psv4.userapi.com/c240331/u172308308/docs/d52/338a9b5f445b/tree-min.png?extra=lOSvNQD4V1NCZ_iXQSf-ChY41Niz8rnSJLUUrg0sx0vtzyEfI3FWbb3QQVnMNrFhUCK0ykIDTW3TQOXQHt3sJDjIecBdLiLIqXY8phIYW312SMC-xj3f-up-qF_NoKpVCYL63-T2PEZ_freGIobqzo8cAw'
+    }
+    ];
+
+
+    initialCards.forEach(function (place) {
+        addCard(place.name, place.link);
+    })
