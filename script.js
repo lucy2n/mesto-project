@@ -2,8 +2,6 @@ const content = document.querySelector('.content');
 
 const editPopup = document.querySelector('#popup-edit');
 const addPopup = document.querySelector('#popup-add');
-const closeButtonEdit = editPopup.querySelector('.close-button');
-const closeButtonAdd = addPopup.querySelector('.close-button');
 
 const profile = content.querySelector('.profile');
 const editButton = profile.querySelector('.profile__edit-button');
@@ -13,28 +11,38 @@ function closePopup (popup) {
     popup.classList.remove('popup_opened');
 }
 
+function loadProfileData () {
+
+    const nameInput = editForm.querySelector('#name-info');
+    const jobInput = editForm.querySelector('#subline-info');
+
+    const profileName = profile.querySelector('.profile__name');
+    const profileSubline = profile.querySelector('.profile__author-subline');
+
+    nameInput.value = profileName.textContent ;
+    jobInput.value = profileSubline.textContent ;
+};
+
+// Edit Profile form
+
 editButton.addEventListener('click', function () {
     editPopup.classList.add('popup_opened');
-    closeButtonEdit.addEventListener('click', function () {
+    loadProfileData();
+    const closeButton = editPopup.querySelector('.close-button');
+    closeButton.addEventListener('click', function () {
         closePopup(editPopup);
+        editForm.reset();
     }); 
-}); 
-
-addButton.addEventListener('click', function () {
-    addPopup.classList.add('popup_opened');
-    closeButtonAdd.addEventListener('click', function () {
-        closePopup(addPopup);
-    });
 });
 
 function formSubmitEdit (evt) {
     evt.preventDefault(); 
     
-    const nameInput = formElement.querySelector('#name-info');
-    const jobInput = formElement.querySelector('#subline-info');
+    const nameInput = editForm.querySelector('#name-info');
+    const jobInput = editForm.querySelector('#subline-info');
 
-    const profileName = document.querySelector('.profile__name');
-    const profileSubline = document.querySelector('.profile__author-subline');
+    const profileName = profile.querySelector('.profile__name');
+    const profileSubline = profile.querySelector('.profile__author-subline');
 
     profileName.textContent = nameInput.value;
     profileSubline.textContent = jobInput.value;
@@ -42,12 +50,38 @@ function formSubmitEdit (evt) {
     closePopup(editPopup);
 }
  
-const formElement = editPopup.querySelector('.popup__container');
-formElement.addEventListener('submit', formSubmitEdit);
+const editForm = editPopup.querySelector('.popup__container');
+editForm.addEventListener('submit', formSubmitEdit);
+
+// Add Card form
+
+addButton.addEventListener('click', function () {
+    addPopup.classList.add('popup_opened');
+    const closeButton = addPopup.querySelector('.close-button');
+    closeButton.addEventListener('click', function () {
+        closePopup(addPopup);
+        addFormElement.reset();
+    });
+});
+
+function formSubmitAdd (evt) {
+    evt.preventDefault(); 
+    
+    const cardName = addFormElement.querySelector('#name-card');
+    const cardLink = addFormElement.querySelector('#link-card');
+
+    addCard(cardName.value, cardLink.value);
+    closePopup(addPopup);
+
+    addFormElement.reset();
+}
+
+const addFormElement = addPopup.querySelector('.popup__container');
+addFormElement.addEventListener('submit', formSubmitAdd);
 
 
 function addCard (nameValue, linkValue) {
-    const elements = document.querySelector('.elements');
+    const elements = content.querySelector('.elements');
     const cardTemplate = document.querySelector('#card-template').content;
     const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
 
@@ -81,52 +115,34 @@ function openCard(nameValue, linkValue) {
     cardPopup.classList.add('card-popup_opened');
 }
 
-function formSubmitAdd (evt) {
-    evt.preventDefault(); 
-    
-    const cardName = addFormElement.querySelector('#name-card');
-    const cardLink = addFormElement.querySelector('#link-card');
-
-    addCard(cardName.value, cardLink.value);
-    closePopup(addPopup);
-
-    // Clear inputs
-    cardLink.value = '';
-    cardName.value = '';
-}
-
-const addFormElement = addPopup.querySelector('.popup__container');
-addFormElement.addEventListener('submit', formSubmitAdd);
-
 
 const initialCards = [
     {
-      name: 'Закат в Криничном',
-      link: 'https://sun9-27.userapi.com/impg/zee_qL_aXO42k7PX8DDp58vCaKAk4RNlbOeTOQ/CxYUbv1d5C8.jpg?size=1620x2160&quality=96&sign=430132b974d5c72014744a6f7cf38be8&type=album'
+      name: 'Чикаго',
+      link: 'https://images.unsplash.com/photo-1648397711291-1e8555ab71c9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1035&q=80'
     },
     {
-      name: 'Жизнь и JS',
-      link: 'https://psv4.userapi.com/c240331/u172308308/docs/d59/3cbc811f879c/pain-min.png?extra=s4P66Hd_mj_f_wmn-8CfKlAEq1T-_dS_-t278gy5ePAHXfwGScXvPoSJuvWyTgFDlGt6LzOBdtb1yIYUnjVHzk3rPhMAN7jvaV32rX0GOipdT47VKz0_K2bSXE5Q7qWv-nu9efozBz42jO_ZkNIyOxdZTQ'
+      name: 'Токио',
+      link: 'https://images.unsplash.com/photo-1669876105374-aca0afa4deaf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80'
     },
     {
-      name: 'Шашлычок 1 января',
-      link: 'https://psv4.userapi.com/c240331/u172308308/docs/d2/d3e9989b9339/meat-min.png?extra=gTkOwdZtj_w6rKJrcTukhXBJ3RdNTmKAgikNELa0zFuKuw4fmvzRdWkcM0Oq7yQ9nYeGm22TCoYYABAJGO61SCsL-f4nWvZNFlML_P-jilPuZGR8_ToxqdmvwlO9wZAJjZEFgwhHXYCj0OIrYxEN7VMejA'
+      name: 'Рим',
+      link: 'https://images.unsplash.com/photo-1670791737578-cc9b605ae2eb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1035&q=80'
     },
     {
-      name: 'Caviar',
-      link: 'https://psv4.userapi.com/c240331/u172308308/docs/d58/ce034cb7dca8/caviar-min.png?extra=sr1O0bIk7wyC_aUsm3atcklEZsms8YF9ST0xyuSKgT7paW3CRa8SEFUtywUd5HZ-1SOB5x_n6RpMczGhrFOxLMPr6iwcK9DLtc9mfPFKCw43uSKwx9gsJ_EgInII180AZTwkuqNsILTjK2MIvRr0wI7cWQ'
+      name: 'Нью-Йорк',
+      link: 'https://images.unsplash.com/photo-1666489022516-a9041fce76db?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80'
     },
     {
-      name: 'Кот Яша',
-      link: 'https://psv4.userapi.com/c240331/u172308308/docs/d13/10fb67921a70/cat-min.png?extra=Rl9_ix428we2VdxWVWF3GvYw4-ovUC4Iv2tuybo-DCLowswc2XbmtS6I7Az1ucxkJ2GuHGqmLh4lfm_3gCKbj4GwGU6A8fxUSdqY6eP7WAKfN3lo6iqUs6iew_3W9AnqR7gHHzy9iAzSzWy69ktSaM97iA'
+      name: 'Джайсалмер',
+      link: 'https://images.unsplash.com/photo-1670874972928-c177de8554bf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80'
     },
     {
-      name: 'Ёлочка зимой',
-      link: 'https://psv4.userapi.com/c240331/u172308308/docs/d52/338a9b5f445b/tree-min.png?extra=lOSvNQD4V1NCZ_iXQSf-ChY41Niz8rnSJLUUrg0sx0vtzyEfI3FWbb3QQVnMNrFhUCK0ykIDTW3TQOXQHt3sJDjIecBdLiLIqXY8phIYW312SMC-xj3f-up-qF_NoKpVCYL63-T2PEZ_freGIobqzo8cAw'
+      name: 'Куала-Лумпур',
+      link: 'https://images.unsplash.com/photo-1670239511435-922fcc026bf4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80'
     }
     ];
 
-
-    initialCards.forEach(function (place) {
-        addCard(place.name, place.link);
-    })
+initialCards.forEach(function (place) {
+    addCard(place.name, place.link);
+});
