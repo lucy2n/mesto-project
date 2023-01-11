@@ -2,9 +2,6 @@
 @import url(../vendor/normalize.css);
 @import url(../vendor/fonts.css);
 
-    /* Button */
-@import url(../blocks/close-button/close-button.css);
-
     /* Page */
 @import url(../blocks/page/page.css);
 @import url(../blocks/page/__header/page__header.css);
@@ -20,13 +17,14 @@
 @import url(../blocks/popup/__edit-info/popup__edit-info.css);
 @import url(../blocks/popup/__input/popup__input.css);
 @import url(../blocks/popup/__submit-button/popup__submit-button.css);
+@import url(../blocks/popup/__caption/popup__caption.css);
+@import url(../blocks/popup/__figure/popup__figure.css);
+@import url(../blocks/popup/__image/popup__image.css);
+@import url(../blocks/popup/close-button/popup__close-button.css);
 
-    /* Card-popup */
-@import url(../blocks/card-popup/card-popup.css);
-@import url(../blocks/card-popup/_opened/card-popup_opened.css);
-@import url(../blocks/card-popup/__figure/card-popup__figure.css);
-@import url(../blocks/card-popup/__image/card-popup__image.css);
-@import url(../blocks/card-popup/__caption/card-popup__caption.css);
+@import url(../blocks/add-popup/add-popup.css);
+@import url(../blocks/edit-popup/edit-popup.css);
+@import url(../blocks/image-popup/image-popup.css);
 
     /* Header */
 @import url(../blocks/header/header.css);

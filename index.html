@@ -33,9 +33,9 @@
     <footer class="footer page__footer">
       <p class="footer__copyright">© 2020 Mesto Russia</p>
     </footer>
-    <div class="popup" id="popup-edit">
+    <div class="popup edit-popup" id="popup-edit">
       <form name="edit-profile" action="#" class="popup__container">
-        <button type="button" class="close-button"></button>
+        <button type="button" class="popup__close-button"></button>
         <h3 class="popup__heading">Редактировать профиль</h3>
         <fieldset class="popup__edit-info">
           <input class="popup__input" id ="name-info" name="name-info" type="text" placeholder="Имя">
@@ -44,9 +44,10 @@
         <button type="submit" class="popup__submit-button">Сохранить</button>
       </form>
     </div>
-    <div class="popup" id="popup-add">
+
+    <div class="popup add-popup" id="popup-add">
       <form name="add-cards" id="add-cards" action="#" class="popup__container">
-        <button type="button" class="close-button"></button>
+        <button type="button" class="popup__close-button"></button>
         <h3 class="popup__heading">Новое место</h3>
         <fieldset class="popup__edit-info">
           <input class="popup__input" id = "name-card" name="name-card" type="text" placeholder="Название">
@@ -56,11 +57,11 @@
       </form>
     </div>
 
-    <div class="card-popup">
-      <figure class="card-popup__figure">
-        <button type="button" class="close-button"></button>
-        <img class="card-popup__image" src="" alt="Полка">
-        <figcaption class="card-popup__caption">
+    <div class="popup image-popup">
+      <figure class="popup__figure">
+        <button type="button" class="popup__close-button"></button>
+        <img class="popup__image" src="" alt="Полка">
+        <figcaption class="popup__caption">
         </figcaption>
       </figure>
     </div>
