@@ -85,8 +85,10 @@ function createCard(nameValue, linkValue) {
     cardElement.querySelector('.element__trash-button').addEventListener('click', function () {
         cardElement.remove();
     });
-    cardElement.querySelector('.element__image').src = linkValue;
-    cardElement.querySelector('.element__image').addEventListener('click', function () {
+    const cardImage = cardElement.querySelector('.element__image');
+    cardImage.src = linkValue;
+    cardImage.alt = nameValue;
+    cardImage.addEventListener('click', function () {
         openCard(nameValue, linkValue);
     });
     cardElement.querySelector('.element__title').textContent = nameValue;
@@ -104,6 +106,7 @@ function addCard (nameValue, linkValue) {
 function openCard(nameValue, linkValue) {
     cardPopupName.textContent = nameValue;
     cardPopupImage.src = linkValue;
+    cardPopupImage.alt = nameValue;
     openPopup(cardPopup);
 }
 
