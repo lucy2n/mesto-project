@@ -28,7 +28,13 @@ closeButtons.forEach((button) => {
     const popup = button.closest('.popup');
     button.addEventListener('click', function () {
         closePopup(popup);
-    })
+    });
+
+    document.addEventListener('keydown', function (evt) {
+        if (evt.key == "Escape") {
+            closePopup(popup)
+        }
+    });
 });
 
 function closePopup (popup) {
@@ -92,9 +98,6 @@ function createCard(nameValue, linkValue) {
         openCard(nameValue, linkValue);
     });
     cardElement.querySelector('.element__title').textContent = nameValue;
-    cardElement.querySelector('.element__like-button').addEventListener('click', function (evt) {
-        evt.target.classList.toggle('element__like-button_active');
-    }); 
     return cardElement;
 }
 
@@ -140,3 +143,20 @@ const initialCards = [
 initialCards.forEach(function (place) {
     addCard(place.name, place.link);
 });
+
+elements.addEventListener('click', function (evt) {
+    if (evt.target.classList.contains('element__like-button')) {
+        evt.target.classList.toggle('element__like-button_active');
+    }
+});  
+
+function closeByOverlay(evt) {
+    console.log(evt.key);
+    if(evt.target.classList.contains('popup')) {
+        closePopup(evt.currentTarget)
+    }
+}
+
+addPopup.addEventListener('click',  closeByOverlay);
+editPopup.addEventListener('click',  closeByOverlay);
+cardPopup.addEventListener('click',  closeByOverlay);
