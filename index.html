@@ -38,8 +38,10 @@
         <button type="button" class="popup__close-button"></button>
         <h3 class="popup__heading">Редактировать профиль</h3>
         <fieldset class="popup__edit-info">
-          <input class="popup__input" id ="name-info" name="name-info" type="text" placeholder="Имя">
-          <input class="popup__input" id ="subline-info" name="subline-info" type="text" placeholder="Профессия">
+          <input class="popup__input" id ="name-info" name="name-info" type="text" placeholder="Имя" minlength="2" maxlength="40" required>
+          <span class="popup-error email-input-error"></span>
+          <input class="popup__input" id ="subline-info" name="subline-info" type="text" placeholder="О себе" minlength="2" maxlength="200" required>
+          <span class="form__input-error email-input-error"></span>
         </fieldset>
         <button type="submit" class="popup__submit-button">Сохранить</button>
       </form>
@@ -50,8 +52,10 @@
         <button type="button" class="popup__close-button"></button>
         <h3 class="popup__heading">Новое место</h3>
         <fieldset class="popup__edit-info">
-          <input class="popup__input" id = "name-card" name="name-card" type="text" placeholder="Название">
-          <input class="popup__input" id ="link-card" name="link-card" type="text" placeholder="Ссылка на картинку">
+          <input class="popup__input" id = "name-card" name="name-card" type="text" placeholder="Название" minlength="2" maxlength="30" required>
+          <span class="form__input-error email-input-error"></span>
+          <input class="popup__input" id ="link-card" name="link-card" type="url" placeholder="Ссылка на картинку" required>
+          <span class="form__input-error email-input-error"></span>
         </fieldset>
         <button type="submit" class="popup__submit-button">Создать</button>
       </form>
