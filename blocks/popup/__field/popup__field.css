@@ -1,0 +1,14 @@
+.popup__field {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.popup__field:last-child {
+    margin-bottom: 48px;
+}
+
+@media screen and (max-width: 767px) {
+    .popup__input:last-child {
+        margin-bottom: 45px;
+    }
+}
