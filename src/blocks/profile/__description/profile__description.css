@@ -5,6 +5,7 @@
 
 @media screen and (max-width: 767px) {
     .profile__description {
-        margin: 26px 0 10px 48px;
+        margin: 26px 0 10px;
+        justify-content: center;
     }
 } 
