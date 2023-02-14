@@ -1,6 +1,6 @@
 import { openCardPopup } from "./modal";
 
-const elements = document.querySelector('.elements');
+export const elements = document.querySelector('.elements');
 
 const createCard = (nameValue, linkValue) => {
     const cardTemplate = document.querySelector('#card-template').content;

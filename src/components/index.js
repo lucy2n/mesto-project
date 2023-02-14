@@ -1,10 +1,9 @@
 import '../pages/index.css';
 import { openPopup, closePopup } from './modal';
 import { enableValidation } from './validate';
-import { addCard } from './card';
+import { addCard, elements } from './card';
 
 const content = document.querySelector('.content');
-const elements = content.querySelector('.elements');
 
 const editPopup = document.querySelector('#popup-edit');
 const addPopup = document.querySelector('#popup-add');
@@ -58,11 +57,6 @@ closeButtons.forEach((button) => {
         closePopup(popup);
     });
 
-    document.addEventListener('keydown', (evt) => {
-        if (evt.key == "Escape") {
-            closePopup(popup)
-        }
-    });
     popup.addEventListener('click', (evt) => {
         if(evt.target.classList.contains('popup')) {
             closePopup(evt.currentTarget)
