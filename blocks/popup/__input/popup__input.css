@@ -10,10 +10,6 @@
     margin: 0 36px;
 }
 
-.popup__input:last-child {
-    margin: 0 36px ;
-}
-
 .popup__input:focus {
     outline: none;
 }
