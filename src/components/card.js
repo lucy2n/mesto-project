@@ -5,7 +5,12 @@ export const elements = document.querySelector('.elements');
 const createCard = (nameValue, linkValue) => {
     const cardTemplate = document.querySelector('#card-template').content;
     const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
-    cardElement.querySelector('.element__trash-button').addEventListener('click', function () {
+    cardElement.addEventListener('click', (evt) => {
+        if (evt.target.classList.contains('element__like-button')) {
+            evt.target.classList.toggle('element__like-button_active');
+        }
+    });
+    cardElement.querySelector('.element__trash-button').addEventListener('click', () => {
         cardElement.remove();
     });
     const cardImage = cardElement.querySelector('.element__image');

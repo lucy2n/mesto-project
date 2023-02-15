@@ -100,12 +100,6 @@ const handleCardFormSubmit = (evt) => {
 
 addFormElement.addEventListener('submit', handleCardFormSubmit);
 
-elements.addEventListener('click', (evt) => {
-    if (evt.target.classList.contains('element__like-button')) {
-        evt.target.classList.toggle('element__like-button_active');
-    }
-});
-
 initialCards.forEach( (place) => {
     addCard(place.name, place.link);
 });
