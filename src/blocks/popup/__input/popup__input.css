@@ -7,7 +7,7 @@
     font-size: 14px;
     line-height: 17px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-    margin: 0 36px;
+    margin: 0 36px 5px;
 }
 
 .popup__input:focus {
@@ -17,6 +17,6 @@
 @media screen and (max-width: 767px) {
     .popup__input { 
         min-width: 238px;
-        margin: 0 22px;
+        margin: 0 22px 5px;
     }
 }

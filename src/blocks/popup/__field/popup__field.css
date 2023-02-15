@@ -1,14 +1,14 @@
 .popup__field {
-    position: relative;
-    margin-bottom: 40px;
-}
-
-.popup__field:last-child {
-    margin-bottom: 48px;
+    display: flex;
+    flex-direction: column;
 }
 
 @media screen and (max-width: 767px) {
-    .popup__field:last-child {
-        margin-bottom: 50px;
+    .popup__field {
+        margin-bottom: 0;
     }
+
+    .popup__field:last-child {
+        margin-bottom: 5px;
+    } 
 }

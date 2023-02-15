@@ -1,4 +1,4 @@
 .popup__input-error_active {
     display: inline-block;
-    position: absolute;
+    /* position: absolute; */
 }
