@@ -1,7 +1,7 @@
 import '../pages/index.css';
 import { openPopup, closePopup } from './modal';
 import { enableValidation } from './validate';
-import { addCard, elements } from './card';
+import { addCard, fetchCards} from './card';
 
 const content = document.querySelector('.content');
 
@@ -114,3 +114,4 @@ const obj = {
 }
 
 enableValidation(obj);
+fetchCards();

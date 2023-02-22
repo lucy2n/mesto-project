@@ -27,3 +27,15 @@ const createCard = (nameValue, linkValue) => {
     const cardElement = createCard(nameValue, linkValue);
     elements.prepend(cardElement);
 }
+
+export const fetchCards = () => {
+    return fetch('https://mesto.nomoreparties.co/v1/plus-cohort-21/cards', {
+        headers: {
+            authorization: '5832d533-117d-41c2-950f-4a452b9fc5a1'
+          }
+        })
+          .then(res => res.json())
+          .then((result) => {
+            console.log(result);
+          }); 
+}
