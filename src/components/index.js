@@ -2,7 +2,7 @@ import '../pages/index.css';
 import { openPopup, closePopup } from './modal';
 import { enableValidation } from './validate';
 import { addCard} from './card';
-import { fetchCards } from './api';
+import { fetchCards, fetchProfileInfo, updateProfileInfo } from './api';
 
 const content = document.querySelector('.content');
 
@@ -21,6 +21,7 @@ const addButton = profile.querySelector('.profile__add-button');
 const editAvatarButton = profile.querySelector('.profile__edit-avatar-button');
 const profileName = profile.querySelector('.profile__name');
 const profileSubline = profile.querySelector('.profile__author-subline');
+const profileAvatar = profile.querySelector('.profile__avatar');
 
 const addFormElement = addPopup.querySelector('.popup__container');
 const cardName = addFormElement.querySelector('#name-card-input');
@@ -68,21 +69,34 @@ closeButtons.forEach((button) => {
 });
 
 const loadProfileData = () => {
+  fetchProfileInfo()
+  .then((res) =>  {
+    profileName.textContent = res.name;
+    profileSubline.textContent = res.about;
+    profileAvatar.src = res.avatar;
+  })
+}
+
+const setupEditForm = () => {
     nameInput.value = profileName.textContent ;
     jobInput.value = profileSubline.textContent ;
 };
 
 editButton.addEventListener('click', () => {
     openPopup(editPopup);
-    loadProfileData();
+    setupEditForm();
 });
 
 const handleProfileFormSubmit = (evt) => {
     evt.preventDefault(); 
 
-    profileName.textContent = nameInput.value;
-    profileSubline.textContent = jobInput.value;
-
+    setupEditForm(nameInput.value, jobInput.value)
+    .then((res) => {
+      profileName.textContent = res.name;
+      profileSubline.textContent = res.about;
+  
+    })
+  
     closePopup(editPopup);
 }
  
@@ -124,4 +138,4 @@ const obj = {
 }
 
 enableValidation(obj);
-fetchCards();
+loadProfileData();

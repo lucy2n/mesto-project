@@ -6,7 +6,7 @@ const config = {
     }
   }
 
-export const fetchCards = () => {
+ const fetchCards = () => {
     return fetch(`${config.baseUrl}/cards`, {
         headers: config.headers
         })
@@ -19,3 +19,38 @@ export const fetchCards = () => {
           .then(result => result)
           .catch(err => console.log(err));
 }
+
+ const fetchProfileInfo = () => {
+    return fetch(`${config.baseUrl}/users/me`, {
+        headers: config.headers
+    })
+    .then(res => {
+        if(res.ok) {
+            return res.json();
+        }
+        return Promise.reject(`Ошибка: ${res.status}`);
+      })
+      .then(result => result)
+      .catch(err => console.log(err));
+}
+
+const updateProfileInfo = (name, about) => {
+    return fetch(`${config.baseUrl}/users/me`, {
+        method: 'PATCH',
+        headers: config.headers,
+        body: JSON.stringify({
+            name: name,
+            about: about
+        })
+    })
+    .then(res => {
+        if(res.ok) {
+            return res.json();
+        }
+        return Promise.reject(`Ошибка: ${res.status}`);
+      })
+      .then(result => result)
+      .catch(err => console.log(err));
+}
+
+export {fetchCards, fetchProfileInfo, updateProfileInfo}
