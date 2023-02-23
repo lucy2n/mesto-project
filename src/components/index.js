@@ -27,33 +27,6 @@ const addFormElement = addPopup.querySelector('.popup__container');
 const cardName = addFormElement.querySelector('#name-card-input');
 const cardLink = addFormElement.querySelector('#link-card-input');
 
-// const initialCards = [
-//     {
-//       name: 'Чикаго',
-//       link: 'https://images.unsplash.com/photo-1648397711291-1e8555ab71c9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1035&q=80'
-//     },
-//     {
-//       name: 'Токио',
-//       link: 'https://images.unsplash.com/photo-1669876105374-aca0afa4deaf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80'
-//     },
-//     {
-//       name: 'Рим',
-//       link: 'https://images.unsplash.com/photo-1670791737578-cc9b605ae2eb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1035&q=80'
-//     },
-//     {
-//       name: 'Нью-Йорк',
-//       link: 'https://images.unsplash.com/photo-1666489022516-a9041fce76db?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80'
-//     },
-//     {
-//       name: 'Джайсалмер',
-//       link: 'https://images.unsplash.com/photo-1670874972928-c177de8554bf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80'
-//     },
-//     {
-//       name: 'Куала-Лумпур',
-//       link: 'https://images.unsplash.com/photo-1670239511435-922fcc026bf4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80'
-//     }
-//     ];
-
 
 closeButtons.forEach((button) => {
     const popup = button.closest('.popup');
@@ -116,7 +89,7 @@ const handleCardFormSubmit = (evt) => {
 
     postNewCard(cardName.value, cardLink.value)
     .then((res) => {
-      addCard(res.name, res.link);
+      addCard(res);
     })
 
     closePopup(addPopup);
@@ -130,7 +103,7 @@ fetchCards()
   .then((initialCards) => {
     initialCards.reverse();
     initialCards.forEach((place) => {
-      addCard(place.name, place.link);
+      addCard(place);
     });
   })
 

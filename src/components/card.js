@@ -2,7 +2,7 @@ import { openCardPopup } from "./modal";
 
 export const elements = document.querySelector('.elements');
 
-const createCard = (nameValue, linkValue) => {
+const createCard = (card) => {
     const cardTemplate = document.querySelector('#card-template').content;
     const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
     cardElement.addEventListener('click', (evt) => {
@@ -14,16 +14,18 @@ const createCard = (nameValue, linkValue) => {
         cardElement.remove();
     });
     const cardImage = cardElement.querySelector('.element__image');
-    cardImage.src = linkValue;
-    cardImage.alt = nameValue;
+    const likeCount = cardElement.querySelector('.element__like-count');
+    likeCount.textContent = card.likes.length;
+    cardImage.src = card.link;
+    cardImage.alt = card.name;
     cardImage.addEventListener('click', () => {
-        openCardPopup(nameValue, linkValue);
+        openCardPopup(card.name, card.link);
     });
-    cardElement.querySelector('.element__title').textContent = nameValue;
+    cardElement.querySelector('.element__title').textContent = card.name;
     return cardElement;
 }
 
- export const addCard = (nameValue, linkValue) => {
-    const cardElement = createCard(nameValue, linkValue);
+ export const addCard = (card) => {
+    const cardElement = createCard(card);
     elements.prepend(cardElement);
 }
