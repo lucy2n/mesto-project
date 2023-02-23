@@ -50,7 +50,7 @@ const setUpCards = () => {
     initialCards.forEach((place) => {
       addCard(place, profileId);
     });
-  })
+  });
 }
 
 const loadProfileData = () => {

@@ -1,5 +1,5 @@
 import { openCardPopup } from "./modal";
-import { deleteMyCard } from "./api";
+import { deleteMyCard, addLike, deleteLike } from "./api";
 
 export const elements = document.querySelector('.elements');
 
@@ -7,9 +7,31 @@ const createCard = (card, profileId) => {
     const cardTemplate = document.querySelector('#card-template').content;
     const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
     const trashButton = cardElement.querySelector('.element__trash-button');
-    cardElement.addEventListener('click', (evt) => {
-        if (evt.target.classList.contains('element__like-button')) {
-            evt.target.classList.toggle('element__like-button_active');
+    const likeButton = cardElement.querySelector('.element__like-button');
+    const likeCount = cardElement.querySelector('.element__like-count');
+
+    const isLiked = card.likes.some((user) => {
+        return user._id == profileId;
+    })
+
+    if(isLiked) {
+        likeButton.classList.add('element__like-button_active');
+    } 
+
+    likeButton.addEventListener('click', (evt) => {
+        evt.target.classList.toggle('element__like-button_active');
+        if(evt.target.classList.contains('element__like-button_active')) {
+           addLike(card._id)
+           .then((res) => {
+            likeCount.textContent = Number(likeCount.textContent) + 1;
+            console.log(res);
+           }) 
+        } else {
+            deleteLike(card._id)
+            .then((res) => {
+                likeCount.textContent = Number(likeCount.textContent) - 1;
+                console.log(res)
+            })
         }
     });
 
@@ -25,7 +47,7 @@ const createCard = (card, profileId) => {
         })
     });
     const cardImage = cardElement.querySelector('.element__image');
-    const likeCount = cardElement.querySelector('.element__like-count');
+    
     likeCount.textContent = card.likes.length;
     cardImage.src = card.link;
     cardImage.alt = card.name;

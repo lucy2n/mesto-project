@@ -87,4 +87,34 @@ const deleteMyCard = (cardId) => {
       .catch(err => console.log(err));
 }
 
-export {fetchCards, fetchProfileInfo, updateProfileInfo, postNewCard, deleteMyCard }
+const addLike = (cardId) => {
+    return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
+        method: 'PUT',
+        headers: config.headers,
+    })
+    .then(res => {
+        if(res.ok) {
+            return res.json();
+        }
+        return Promise.reject(`Ошибка: ${res.status}`);
+      })
+      .then(result => result)
+      .catch(err => console.log(err));
+}
+
+const deleteLike = (cardId) => {
+    return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
+        method: 'DELETE',
+        headers: config.headers,
+    })
+    .then(res => {
+        if(res.ok) {
+            return res.json();
+        }
+        return Promise.reject(`Ошибка: ${res.status}`);
+      })
+      .then(result => result)
+      .catch(err => console.log(err));
+}
+
+export {fetchCards, fetchProfileInfo, updateProfileInfo, postNewCard, deleteMyCard, addLike, deleteLike }
