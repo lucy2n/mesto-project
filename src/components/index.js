@@ -27,6 +27,7 @@ const addFormElement = addPopup.querySelector('.popup__container');
 const cardName = addFormElement.querySelector('#name-card-input');
 const cardLink = addFormElement.querySelector('#link-card-input');
 
+let profileId = null;
 
 closeButtons.forEach((button) => {
     const popup = button.closest('.popup');
@@ -47,6 +48,7 @@ const loadProfileData = () => {
     profileName.textContent = res.name;
     profileSubline.textContent = res.about;
     profileAvatar.src = res.avatar;
+    profileId = res._id;
   })
 }
 
@@ -70,7 +72,6 @@ const handleProfileFormSubmit = (evt) => {
   
     })
     
-    
     closePopup(editPopup);
 }
  
@@ -89,7 +90,7 @@ const handleCardFormSubmit = (evt) => {
 
     postNewCard(cardName.value, cardLink.value)
     .then((res) => {
-      addCard(res);
+      addCard(res, profileId);
     })
 
     closePopup(addPopup);
@@ -99,11 +100,13 @@ const handleCardFormSubmit = (evt) => {
 
 addFormElement.addEventListener('submit', handleCardFormSubmit);
 
+loadProfileData();
+
 fetchCards()
   .then((initialCards) => {
     initialCards.reverse();
     initialCards.forEach((place) => {
-      addCard(place);
+      addCard(place, profileId);
     });
   })
 
@@ -117,4 +120,3 @@ const obj = {
 }
 
 enableValidation(obj);
-loadProfileData();

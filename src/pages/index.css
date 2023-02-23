@@ -61,6 +61,7 @@
 @import url(../blocks/element/__trash-button/element__trash-button.css);
 @import url(../blocks/element/__like-container/element__like-container.css);
 @import url(../blocks/element/__like-count/element__like-count.css);
+@import url(../blocks/element/__trash-button/_disabled/element__trash-button_disabled.css);
 
     /* Footer */
 @import url(../blocks/footer/footer.css);
