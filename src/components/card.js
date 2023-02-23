@@ -1,4 +1,5 @@
 import { openCardPopup } from "./modal";
+import { deleteMyCard } from "./api";
 
 export const elements = document.querySelector('.elements');
 
@@ -17,7 +18,11 @@ const createCard = (card, profileId) => {
         trashButton.classList.remove('element__trash-button_disabled');
     }
     trashButton.addEventListener('click', () => {
-        cardElement.remove();
+        deleteMyCard(card._id)
+        .then((res) => {
+            cardElement.remove();
+            console.log(res);
+        })
     });
     const cardImage = cardElement.querySelector('.element__image');
     const likeCount = cardElement.querySelector('.element__like-count');

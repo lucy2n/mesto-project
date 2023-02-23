@@ -72,4 +72,19 @@ const postNewCard = (name, link) => {
       .catch(err => console.log(err));
 }
 
-export {fetchCards, fetchProfileInfo, updateProfileInfo, postNewCard}
+const deleteMyCard = (cardId) => {
+    return fetch(`${config.baseUrl}/cards/${cardId}`, {
+        method: 'DELETE',
+        headers: config.headers,
+    })
+    .then(res => {
+        if(res.ok) {
+            return res.json();
+        }
+        return Promise.reject(`Ошибка: ${res.status}`);
+      })
+      .then(result => result)
+      .catch(err => console.log(err));
+}
+
+export {fetchCards, fetchProfileInfo, updateProfileInfo, postNewCard, deleteMyCard }

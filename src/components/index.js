@@ -42,6 +42,17 @@ closeButtons.forEach((button) => {
     });
 });
 
+const setUpCards = () => {
+  fetchCards()
+  .then((initialCards) => {
+    initialCards.reverse();
+    console.log(initialCards)
+    initialCards.forEach((place) => {
+      addCard(place, profileId);
+    });
+  })
+}
+
 const loadProfileData = () => {
   fetchProfileInfo()
   .then((res) =>  {
@@ -49,6 +60,7 @@ const loadProfileData = () => {
     profileSubline.textContent = res.about;
     profileAvatar.src = res.avatar;
     profileId = res._id;
+    setUpCards();
   })
 }
 
@@ -101,14 +113,6 @@ const handleCardFormSubmit = (evt) => {
 addFormElement.addEventListener('submit', handleCardFormSubmit);
 
 loadProfileData();
-
-fetchCards()
-  .then((initialCards) => {
-    initialCards.reverse();
-    initialCards.forEach((place) => {
-      addCard(place, profileId);
-    });
-  })
 
 const obj = {
     formSelector: '.popup__container',
