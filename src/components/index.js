@@ -2,7 +2,7 @@ import '../pages/index.css';
 import { openPopup, closePopup } from './modal';
 import { enableValidation } from './validate';
 import { addCard} from './card';
-import { fetchCards, fetchProfileInfo, updateProfileInfo } from './api';
+import { fetchCards, fetchProfileInfo, updateProfileInfo, postNewCard } from './api';
 
 const content = document.querySelector('.content');
 
@@ -90,13 +90,14 @@ editButton.addEventListener('click', () => {
 const handleProfileFormSubmit = (evt) => {
     evt.preventDefault(); 
 
-    setupEditForm(nameInput.value, jobInput.value)
+    updateProfileInfo(nameInput.value, jobInput.value)
     .then((res) => {
       profileName.textContent = res.name;
       profileSubline.textContent = res.about;
   
     })
-  
+    
+    
     closePopup(editPopup);
 }
  
@@ -113,7 +114,11 @@ editAvatarButton.addEventListener('click', () => {
 const handleCardFormSubmit = (evt) => {
     evt.preventDefault(); 
 
-    addCard(cardName.value, cardLink.value);
+    postNewCard(cardName.value, cardLink.value)
+    .then((res) => {
+      addCard(res.name, res.link);
+    })
+
     closePopup(addPopup);
 
     addFormElement.reset();
@@ -123,6 +128,7 @@ addFormElement.addEventListener('submit', handleCardFormSubmit);
 
 fetchCards()
   .then((initialCards) => {
+    initialCards.reverse();
     initialCards.forEach((place) => {
       addCard(place.name, place.link);
     });

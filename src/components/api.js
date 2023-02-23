@@ -53,4 +53,23 @@ const updateProfileInfo = (name, about) => {
       .catch(err => console.log(err));
 }
 
-export {fetchCards, fetchProfileInfo, updateProfileInfo}
+const postNewCard = (name, link) => {
+    return fetch(`${config.baseUrl}/cards`, {
+        method: 'POST',
+        headers: config.headers,
+        body: JSON.stringify({
+            name: name,
+            link: link
+        })
+    })
+    .then(res => {
+        if(res.ok) {
+            return res.json();
+        }
+        return Promise.reject(`Ошибка: ${res.status}`);
+      })
+      .then(result => result)
+      .catch(err => console.log(err));
+}
+
+export {fetchCards, fetchProfileInfo, updateProfileInfo, postNewCard}
