@@ -3,6 +3,7 @@ import { openPopup, closePopup } from './modal';
 import { enableValidation } from './validate';
 import { addCard} from './card';
 import { fetchCards, fetchProfileInfo, updateProfileInfo, postNewCard, updateAvatar } from './api';
+import { renderLoading } from './utils';
 
 const content = document.querySelector('.content');
 
@@ -27,6 +28,15 @@ const avatarFormElement = avatarPopup.querySelector('.popup__container');
 const addFormElement = addPopup.querySelector('.popup__container');
 const cardName = addFormElement.querySelector('#name-card-input');
 const cardLink = addFormElement.querySelector('#link-card-input');
+
+const obj = {
+  formSelector: '.popup__container',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__submit-button',
+  inactiveButtonClass: 'popup__submit-button_inactive',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__input-error_active'
+}
 
 let profileId = null;
 
@@ -77,15 +87,16 @@ editButton.addEventListener('click', () => {
 
 const handleProfileFormSubmit = (evt) => {
     evt.preventDefault(); 
-
+    renderLoading(true, editForm);
     updateProfileInfo(nameInput.value, jobInput.value)
     .then((res) => {
       profileName.textContent = res.name;
       profileSubline.textContent = res.about;
-  
     })
-    
-    closePopup(editPopup);
+    .finally(() => {
+      renderLoading(false, editForm);
+      closePopup(editPopup);
+    })
 }
  
 editForm.addEventListener('submit', handleProfileFormSubmit);
@@ -101,12 +112,15 @@ editAvatarButton.addEventListener('click', () => {
 const handleCardFormSubmit = (evt) => {
     evt.preventDefault(); 
 
+    renderLoading(true, addPopup);
     postNewCard(cardName.value, cardLink.value)
     .then((res) => {
       addCard(res, profileId);
     })
-
-    closePopup(addPopup);
+    .finally(() => {
+      renderLoading(false, addPopup);
+      closePopup(addPopup);
+    })
 
     addFormElement.reset();
 }
@@ -115,26 +129,24 @@ addFormElement.addEventListener('submit', handleCardFormSubmit);
 
 const handleAvatarFormSubmit = (evt) => {
     evt.preventDefault(); 
+    
+    renderLoading(true, avatarPopup);
     const avatarInput = document.querySelector('#link-avatar-input');
     updateAvatar(avatarInput.value)
     .then((res) => {
       profileAvatar.src = res.avatar;
     })
-    closePopup(avatarPopup);
+    .finally(() => {
+      renderLoading(false, avatarPopup);
+      closePopup(avatarPopup);
+    })
 
 }
  avatarFormElement.addEventListener('submit', handleAvatarFormSubmit);
 
 
-loadProfileData();
 
-const obj = {
-    formSelector: '.popup__container',
-    inputSelector: '.popup__input',
-    submitButtonSelector: '.popup__submit-button',
-    inactiveButtonClass: 'popup__submit-button_inactive',
-    inputErrorClass: 'popup__input_type_error',
-    errorClass: 'popup__input-error_active'
-}
+
+loadProfileData();
 
 enableValidation(obj);
