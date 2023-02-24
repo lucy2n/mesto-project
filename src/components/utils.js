@@ -1,8 +1,18 @@
-export const renderLoading = (isLoading, form) => {
-    const button = form.querySelector('.popup__submit-button')
+export const renderLoading = (isLoading, button, buttonText='Сохранить', loadingText='Сохранение...') => {
     if(isLoading) {
-        button.textContent = 'Сохранение...'
+        button.textContent = loadingText
     } else {
-        button.textContent = 'Сохранить'
+        button.textContent = buttonText
     }
 }
+
+ function checkResponse(res) {
+    if(res.ok) {
+        return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+  }
+
+ export const request = (url, options) => {
+    return fetch(url, options).then(checkResponse)
+  }

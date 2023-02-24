@@ -4,41 +4,9 @@ import { enableValidation } from './validate';
 import { addCard} from './card';
 import { fetchCards, fetchProfileInfo, updateProfileInfo, postNewCard, updateAvatar } from './api';
 import { renderLoading } from './utils';
+import {editPopup, addPopup, avatarPopup, closeButtons, editForm, nameInput, jobInput, editButton, addButton, editAvatarButton, profileName, profileSubline, profileAvatar, avatarFormElement, addFormElement, cardName, cardLink, obj, avatarInput} from './constants';
 
-const content = document.querySelector('.content');
-
-const editPopup = document.querySelector('#popup-edit');
-const addPopup = document.querySelector('#popup-add');
-const avatarPopup = document.querySelector('#popup-avatar')
-const closeButtons = document.querySelectorAll('.popup__close-button');
-
-const editForm = editPopup.querySelector('.popup__container');
-const nameInput = editForm.querySelector('#name-input');
-const jobInput = editForm.querySelector('#subline-input');
-
-const profile = content.querySelector('.profile');
-const editButton = profile.querySelector('.profile__edit-button');
-const addButton = profile.querySelector('.profile__add-button');
-const editAvatarButton = profile.querySelector('.profile__edit-avatar-button');
-const profileName = profile.querySelector('.profile__name');
-const profileSubline = profile.querySelector('.profile__author-subline');
-const profileAvatar = profile.querySelector('.profile__avatar');
-const avatarFormElement = avatarPopup.querySelector('.popup__container');
-
-const addFormElement = addPopup.querySelector('.popup__container');
-const cardName = addFormElement.querySelector('#name-card-input');
-const cardLink = addFormElement.querySelector('#link-card-input');
-
-const obj = {
-  formSelector: '.popup__container',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__submit-button',
-  inactiveButtonClass: 'popup__submit-button_inactive',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__input-error_active'
-}
-
-let profileId = null;
+export let profileId = null;
 
 closeButtons.forEach((button) => {
     const popup = button.closest('.popup');
@@ -46,33 +14,48 @@ closeButtons.forEach((button) => {
         closePopup(popup);
     });
 
-    popup.addEventListener('click', (evt) => {
+    popup.addEventListener('mousedown', (evt) => {
         if(evt.target.classList.contains('popup')) {
             closePopup(evt.currentTarget)
         }
     });
 });
 
-const setUpCards = () => {
-  fetchCards()
-  .then((initialCards) => {
+
+const loadData = () => {
+  Promise.all([fetchProfileInfo(), fetchCards()])
+  .then(([profileInfo, initialCards]) => {
+    profileName.textContent = profileInfo.name;
+    profileSubline.textContent = profileInfo.about;
+    profileAvatar.src = profileInfo.avatar;
+    profileId = profileInfo._id;
+
     initialCards.reverse();
     console.log(initialCards)
     initialCards.forEach((place) => {
       addCard(place, profileId);
     });
-  });
+  })
+  .catch(err => console.log(err));
 }
 
-const loadProfileData = () => {
-  fetchProfileInfo()
-  .then((res) =>  {
-    profileName.textContent = res.name;
-    profileSubline.textContent = res.about;
-    profileAvatar.src = res.avatar;
-    profileId = res._id;
-    setUpCards();
+const handleSubmit = (request, evt, loadingText = "Сохранение...") => {
+  evt.preventDefault(); 
+
+  const submitButton = evt.submitter;
+  const initialText = submitButton.textContent;
+
+  renderLoading(true, submitButton, initialText, loadingText);
+  request()
+  .then(() => {
+    evt.target.reset();
   })
+  .catch((err) => {
+    console.error(`Ошибка: ${err}`);
+  })
+  .finally(() => {
+    renderLoading(false, submitButton, initialText);
+  });
 }
 
 const setupEditForm = () => {
@@ -86,17 +69,15 @@ editButton.addEventListener('click', () => {
 });
 
 const handleProfileFormSubmit = (evt) => {
-    evt.preventDefault(); 
-    renderLoading(true, editForm);
-    updateProfileInfo(nameInput.value, jobInput.value)
+  const makeRequest = () => {
+    return updateProfileInfo(nameInput.value, jobInput.value)
     .then((res) => {
       profileName.textContent = res.name;
       profileSubline.textContent = res.about;
-    })
-    .finally(() => {
-      renderLoading(false, editForm);
       closePopup(editPopup);
     })
+  }
+  handleSubmit(makeRequest, evt);
 }
  
 editForm.addEventListener('submit', handleProfileFormSubmit);
@@ -110,43 +91,33 @@ editAvatarButton.addEventListener('click', () => {
 });
 
 const handleCardFormSubmit = (evt) => {
-    evt.preventDefault(); 
-
-    renderLoading(true, addPopup);
+  const makeRequest = () => {
     postNewCard(cardName.value, cardLink.value)
     .then((res) => {
       addCard(res, profileId);
-    })
-    .finally(() => {
-      renderLoading(false, addPopup);
       closePopup(addPopup);
+      addFormElement.reset();
     })
-
-    addFormElement.reset();
+  }
+  handleSubmit(makeRequest, evt)
 }
 
 addFormElement.addEventListener('submit', handleCardFormSubmit);
 
 const handleAvatarFormSubmit = (evt) => {
-    evt.preventDefault(); 
-    
-    renderLoading(true, avatarPopup);
-    const avatarInput = document.querySelector('#link-avatar-input');
+  const makeRequest = () => {
     updateAvatar(avatarInput.value)
     .then((res) => {
       profileAvatar.src = res.avatar;
-    })
-    .finally(() => {
-      renderLoading(false, avatarPopup);
       closePopup(avatarPopup);
+      avatarFormElement.reset();
     })
-
-    avatarFormElement.reset();
+  }
+  handleSubmit(makeRequest, evt)
 
 }
 
  avatarFormElement.addEventListener('submit', handleAvatarFormSubmit);
 
-loadProfileData();
-
+loadData();
 enableValidation(obj);

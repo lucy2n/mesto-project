@@ -19,19 +19,21 @@ const createCard = (card, profileId) => {
     } 
 
     likeButton.addEventListener('click', (evt) => {
-        evt.target.classList.toggle('element__like-button_active');
-        if(evt.target.classList.contains('element__like-button_active')) {
+        if(!evt.target.classList.contains('element__like-button_active')) {
            addLike(card._id)
            .then((res) => {
-            likeCount.textContent = Number(likeCount.textContent) + 1;
-            console.log(res);
+            evt.target.classList.toggle('element__like-button_active');
+            likeCount.textContent = res.likes.length;
            }) 
+           .catch(err => console.log(err));
         } else {
             deleteLike(card._id)
             .then((res) => {
-                likeCount.textContent = Number(likeCount.textContent) - 1;
-                console.log(res)
+                evt.target.classList.toggle('element__like-button_active');
+                likeCount.textContent = res.likes.length;
             })
+            .catch(err => console.log(err));
+
         }
     });
 
@@ -43,8 +45,8 @@ const createCard = (card, profileId) => {
         deleteMyCard(card._id)
         .then((res) => {
             cardElement.remove();
-            console.log(res);
         })
+        .catch(err => console.log(err));
     });
     const cardImage = cardElement.querySelector('.element__image');
     

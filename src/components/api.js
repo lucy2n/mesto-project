@@ -1,3 +1,5 @@
+import { request } from "./utils";
+
 const config = {
     baseUrl: 'https://mesto.nomoreparties.co/v1/plus-cohort-21',
     headers: {
@@ -7,35 +9,17 @@ const config = {
   }
 
  const fetchCards = () => {
-    return fetch(`${config.baseUrl}/cards`, {
-        headers: config.headers
-        })
-          .then(res => {
-            if(res.ok) {
-                return res.json();
-            }
-            return Promise.reject(`Ошибка: ${res.status}`);
-          })
+    return request(`${config.baseUrl}/cards`, { headers: config.headers})
           .then(result => result)
-          .catch(err => console.log(err));
 }
 
  const fetchProfileInfo = () => {
-    return fetch(`${config.baseUrl}/users/me`, {
-        headers: config.headers
-    })
-    .then(res => {
-        if(res.ok) {
-            return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
-      .then(result => result)
-      .catch(err => console.log(err));
+    return request(`${config.baseUrl}/users/me`, { headers: config.headers})
+        .then(result => result)
 }
 
 const updateProfileInfo = (name, about) => {
-    return fetch(`${config.baseUrl}/users/me`, {
+    return request(`${config.baseUrl}/users/me`, { 
         method: 'PATCH',
         headers: config.headers,
         body: JSON.stringify({
@@ -43,18 +27,10 @@ const updateProfileInfo = (name, about) => {
             about: about
         })
     })
-    .then(res => {
-        if(res.ok) {
-            return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
-      .then(result => result)
-      .catch(err => console.log(err));
 }
 
 const postNewCard = (name, link) => {
-    return fetch(`${config.baseUrl}/cards`, {
+    return request(`${config.baseUrl}/cards`, { 
         method: 'POST',
         headers: config.headers,
         body: JSON.stringify({
@@ -62,77 +38,38 @@ const postNewCard = (name, link) => {
             link: link
         })
     })
-    .then(res => {
-        if(res.ok) {
-            return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
-      .then(result => result)
-      .catch(err => console.log(err));
 }
 
 const deleteMyCard = (cardId) => {
-    return fetch(`${config.baseUrl}/cards/${cardId}`, {
+    return request(`${config.baseUrl}/cards/${cardId}`, { 
         method: 'DELETE',
-        headers: config.headers,
+        headers: config.headers
     })
-    .then(res => {
-        if(res.ok) {
-            return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
-      .then(result => result)
-      .catch(err => console.log(err));
 }
 
 const addLike = (cardId) => {
-    return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
+    return request(`${config.baseUrl}/cards/likes/${cardId}`, { 
         method: 'PUT',
-        headers: config.headers,
+        headers: config.headers
     })
-    .then(res => {
-        if(res.ok) {
-            return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
-      .then(result => result)
-      .catch(err => console.log(err));
 }
 
 const deleteLike = (cardId) => {
-    return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
+    return request(`${config.baseUrl}/cards/likes/${cardId}`, { 
         method: 'DELETE',
-        headers: config.headers,
+        headers: config.headers
     })
-    .then(res => {
-        if(res.ok) {
-            return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
-      .then(result => result)
-      .catch(err => console.log(err));
 }
 
 const updateAvatar = (avatar) => {
-    return fetch(`${config.baseUrl}/users/me/avatar`, {
+    return request(`${config.baseUrl}/users/me/avatar`, { 
         method: 'PATCH',
         headers: config.headers,
         body: JSON.stringify({
             avatar : avatar
         })
     })
-    .then((res) => {
-        if(res.ok) {
-            return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
-    .then(result => result)
-    .catch(err => console.log(err));
+    .then(checkResponse)
 }
 
 export {fetchCards, fetchProfileInfo, updateProfileInfo, postNewCard, deleteMyCard, addLike, deleteLike, updateAvatar }
