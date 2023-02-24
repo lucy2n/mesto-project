@@ -144,10 +144,8 @@ const handleAvatarFormSubmit = (evt) => {
     avatarFormElement.reset();
 
 }
+
  avatarFormElement.addEventListener('submit', handleAvatarFormSubmit);
-
-
-
 
 loadProfileData();
 
