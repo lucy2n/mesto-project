@@ -141,6 +141,8 @@ const handleAvatarFormSubmit = (evt) => {
       closePopup(avatarPopup);
     })
 
+    avatarFormElement.reset();
+
 }
  avatarFormElement.addEventListener('submit', handleAvatarFormSubmit);
 
