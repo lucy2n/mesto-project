@@ -2,7 +2,7 @@ import '../pages/index.css';
 import { openPopup, closePopup } from './modal';
 import { enableValidation } from './validate';
 import { addCard} from './card';
-import { fetchCards, fetchProfileInfo, updateProfileInfo, postNewCard } from './api';
+import { fetchCards, fetchProfileInfo, updateProfileInfo, postNewCard, updateAvatar } from './api';
 
 const content = document.querySelector('.content');
 
@@ -22,6 +22,7 @@ const editAvatarButton = profile.querySelector('.profile__edit-avatar-button');
 const profileName = profile.querySelector('.profile__name');
 const profileSubline = profile.querySelector('.profile__author-subline');
 const profileAvatar = profile.querySelector('.profile__avatar');
+const avatarFormElement = avatarPopup.querySelector('.popup__container');
 
 const addFormElement = addPopup.querySelector('.popup__container');
 const cardName = addFormElement.querySelector('#name-card-input');
@@ -111,6 +112,19 @@ const handleCardFormSubmit = (evt) => {
 }
 
 addFormElement.addEventListener('submit', handleCardFormSubmit);
+
+const handleAvatarFormSubmit = (evt) => {
+    evt.preventDefault(); 
+    const avatarInput = document.querySelector('#link-avatar-input');
+    updateAvatar(avatarInput.value)
+    .then((res) => {
+      profileAvatar.src = res.avatar;
+    })
+    closePopup(avatarPopup);
+
+}
+ avatarFormElement.addEventListener('submit', handleAvatarFormSubmit);
+
 
 loadProfileData();
 
