@@ -69,7 +69,6 @@ const updateAvatar = (avatar) => {
             avatar : avatar
         })
     })
-    .then(checkResponse)
 }
 
 export {fetchCards, fetchProfileInfo, updateProfileInfo, postNewCard, deleteMyCard, addLike, deleteLike, updateAvatar }

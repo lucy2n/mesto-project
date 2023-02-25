@@ -3,7 +3,7 @@ import { openPopup, closePopup } from './modal';
 import { enableValidation } from './validate';
 import { addCard} from './card';
 import { fetchCards, fetchProfileInfo, updateProfileInfo, postNewCard, updateAvatar } from './api';
-import { renderLoading } from './utils';
+import { handleSubmit } from './utils';
 import {editPopup, addPopup, avatarPopup, closeButtons, editForm, nameInput, jobInput, editButton, addButton, editAvatarButton, profileName, profileSubline, profileAvatar, avatarFormElement, addFormElement, cardName, cardLink, obj, avatarInput} from './constants';
 
 export let profileId = null;
@@ -21,7 +21,6 @@ closeButtons.forEach((button) => {
     });
 });
 
-
 const loadData = () => {
   Promise.all([fetchProfileInfo(), fetchCards()])
   .then(([profileInfo, initialCards]) => {
@@ -37,25 +36,6 @@ const loadData = () => {
     });
   })
   .catch(err => console.log(err));
-}
-
-const handleSubmit = (request, evt, loadingText = "Сохранение...") => {
-  evt.preventDefault(); 
-
-  const submitButton = evt.submitter;
-  const initialText = submitButton.textContent;
-
-  renderLoading(true, submitButton, initialText, loadingText);
-  request()
-  .then(() => {
-    evt.target.reset();
-  })
-  .catch((err) => {
-    console.error(`Ошибка: ${err}`);
-  })
-  .finally(() => {
-    renderLoading(false, submitButton, initialText);
-  });
 }
 
 const setupEditForm = () => {
@@ -92,7 +72,7 @@ editAvatarButton.addEventListener('click', () => {
 
 const handleCardFormSubmit = (evt) => {
   const makeRequest = () => {
-    postNewCard(cardName.value, cardLink.value)
+    return postNewCard(cardName.value, cardLink.value)
     .then((res) => {
       addCard(res, profileId);
       closePopup(addPopup);
@@ -106,15 +86,14 @@ addFormElement.addEventListener('submit', handleCardFormSubmit);
 
 const handleAvatarFormSubmit = (evt) => {
   const makeRequest = () => {
-    updateAvatar(avatarInput.value)
-    .then((res) => {
-      profileAvatar.src = res.avatar;
-      closePopup(avatarPopup);
-      avatarFormElement.reset();
-    })
+    return updateAvatar(avatarInput.value)
+      .then((res) => {
+        profileAvatar.src = res.avatar;
+        closePopup(avatarPopup);
+        avatarFormElement.reset();
+      });
   }
   handleSubmit(makeRequest, evt)
-
 }
 
  avatarFormElement.addEventListener('submit', handleAvatarFormSubmit);
