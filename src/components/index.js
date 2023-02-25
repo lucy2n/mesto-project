@@ -76,7 +76,6 @@ const handleCardFormSubmit = (evt) => {
     .then((res) => {
       addCard(res, profileId);
       closePopup(addPopup);
-      addFormElement.reset();
     })
   }
   handleSubmit(makeRequest, evt)
@@ -90,7 +89,6 @@ const handleAvatarFormSubmit = (evt) => {
       .then((res) => {
         profileAvatar.src = res.avatar;
         closePopup(avatarPopup);
-        avatarFormElement.reset();
       });
   }
   handleSubmit(makeRequest, evt)
