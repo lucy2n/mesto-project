@@ -9,9 +9,9 @@ import {editPopup, addPopup, avatarPopup, closeButtons, editForm, nameInput, job
 import {api} from "./constants";
 import Card from './CardNew.js';
 import FormValidator from './FormValidator.js';
+import Section from './Section.js';
 
 export let profileId = null;
-
 
 
 closeButtons.forEach((button) => {
@@ -36,10 +36,36 @@ const loadData = () => {
     profileId = profileInfo._id;
 
     initialCards.reverse();
-    initialCards.forEach((card) => {
-      const cardClass = new Card(card, profileId, openCardPopup, '#card-template');
-      cardClass.addCard();
-    });
+
+
+    const section = new Section({
+      items: initialCards,
+      renderer: (item) => {
+        const cardNew = new Card(item, profileId, openCardPopup, '#card-template');
+        const cardElement = cardNew.createCard();
+
+        section.addItem(cardElement)
+      }}, '.elements');
+
+    section.renderItems()
+
+    /* const sect = new Section({
+      items : initialCards,
+      renderer: (itemE) => {
+        const cardNew = new Card(item, profileId, openCardPopup, '#card-template');
+        const cardElement = cardNew.createCard();
+        sect.addItem(cardElement);
+      }
+    }) */
+
+
+    
+    // initialCards.forEach((card) => {
+    //   //const sect = new Section( card,() => {const cardClass = new Card(card, profileId, openCardPopup, '#card-template');})
+    //   const cardClass = new Card(card, profileId, openCardPopup, '#card-template');
+
+    //   cardClass.addCard();
+    // });
   })
   .catch(err => console.log(err));
 }
@@ -85,9 +111,23 @@ editAvatarButton.addEventListener('click', () => {
 const handleCardFormSubmit = (evt) => {
   const makeRequest = () => {
     return api.postNewCard(cardName.value, cardLink.value)
-    .then((card) => {
+    /* .then((card) => {
       const cardClass = new Card(card, profileId, openCardPopup, '#card-template')
       cardClass.addCard();
+      closePopup(addPopup);
+    }) */
+
+    .then((card) => {
+      const section = new Section({
+        items: [card],
+        renderer: (item) => {
+          const cardNew = new Card(item, profileId, openCardPopup, '#card-template');
+          const cardElement = cardNew.createCard();
+          section.addItem(cardElement);
+        }}, '.elements');
+      section.renderItems();
+
+
       closePopup(addPopup);
     })
   }

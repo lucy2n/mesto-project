@@ -1,5 +1,3 @@
-
-
 export default class FormValidator {
     constructor(options, formElement) {
         this._options = options;

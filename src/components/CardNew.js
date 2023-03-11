@@ -73,7 +73,7 @@ export default class Card {
         });
     }
 
-    _createCard() {
+    createCard() {
         const cardElement = this._getCardElement()
         const likeButton = cardElement.querySelector('.element__like-button');
         const trashButton = cardElement.querySelector('.element__trash-button');
@@ -98,8 +98,9 @@ export default class Card {
         return cardElement;
     }
     
-    addCard() { // TODO: За вставку карточки в разметку должен отвечать класс Section
-        const cardElement = this._createCard();
-        document.querySelector('.elements').prepend(cardElement);
-    }
+    // addCard() { // TODO: За вставку карточки в разметку должен отвечать класс Section
+    //     const cardElement = this._createCard();
+    //     //document.querySelector('.elements').prepend(cardElement);
+        
+    // }
 }
