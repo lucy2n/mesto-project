@@ -11,7 +11,7 @@ export default class Card {
             return user._id == profileId;
         });
         this._isOwner = profileId == this._owner._id//Наша ли карточка;
-        this.openCardPopup = openCardPopup;
+        this._openCardPopup = openCardPopup;
         this._selector = selector;
 
         this._api = api;
@@ -69,7 +69,7 @@ export default class Card {
         });
 
         cardImage.addEventListener('click', () => {
-            openCardPopup(this._name, this._link);
+            this._openCardPopup(this._name, this._link);
         });
     }
 

@@ -8,7 +8,7 @@ import {editPopup, addPopup, avatarPopup, closeButtons, editForm, nameInput, job
 
 import {api} from "./constants";
 import Card from './CardNew.js';
-
+import FormValidator from './FormValidator.js';
 
 export let profileId = null;
 
@@ -50,6 +50,8 @@ const setupEditForm = () => {
 };
 
 editButton.addEventListener('click', () => {
+    const editProfileValidation = new FormValidator(obj, editForm);
+    editProfileValidation.enableValidation();
     openPopup(editPopup);
     setupEditForm();
 });
@@ -69,10 +71,14 @@ const handleProfileFormSubmit = (evt) => {
 editForm.addEventListener('submit', handleProfileFormSubmit);
 
 addButton.addEventListener('click', () => {
+  const addCardValidation = new FormValidator(obj, addFormElement);
+  addCardValidation.enableValidation();
     openPopup(addPopup);
 });
 
 editAvatarButton.addEventListener('click', () => {
+  const avatarValidation = new FormValidator(obj, avatarFormElement);
+  avatarValidation.enableValidation();
   openPopup(avatarPopup);
 });
 
@@ -104,4 +110,4 @@ const handleAvatarFormSubmit = (evt) => {
  avatarFormElement.addEventListener('submit', handleAvatarFormSubmit);
 
 loadData();
-enableValidation(obj);
+//enableValidation(obj);
