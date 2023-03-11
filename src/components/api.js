@@ -1,4 +1,5 @@
-import { request } from "./utils";
+/* import { request } from "./utils";
+
 
 const config = {
     baseUrl: 'https://mesto.nomoreparties.co/v1/plus-cohort-21',
@@ -71,4 +72,4 @@ const updateAvatar = (avatar) => {
     })
 }
 
-export {fetchCards, fetchProfileInfo, updateProfileInfo, postNewCard, deleteMyCard, addLike, deleteLike, updateAvatar }
+export {fetchCards, fetchProfileInfo, updateProfileInfo, postNewCard, deleteMyCard, addLike, deleteLike, updateAvatar } */

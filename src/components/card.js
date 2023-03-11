@@ -1,5 +1,5 @@
 import { openCardPopup } from "./modal";
-import { deleteMyCard, addLike, deleteLike } from "./api";
+import {api} from "./constants";
 
 export const elements = document.querySelector('.elements');
 
@@ -20,14 +20,14 @@ const createCard = (card, profileId) => {
 
     likeButton.addEventListener('click', (evt) => {
         if(!evt.target.classList.contains('element__like-button_active')) {
-           addLike(card._id)
+           api.addLike(card._id)
            .then((res) => {
             evt.target.classList.toggle('element__like-button_active');
             likeCount.textContent = res.likes.length;
            }) 
            .catch(err => console.log(err));
         } else {
-            deleteLike(card._id)
+            api.deleteLike(card._id)
             .then((res) => {
                 evt.target.classList.toggle('element__like-button_active');
                 likeCount.textContent = res.likes.length;
@@ -42,7 +42,7 @@ const createCard = (card, profileId) => {
         trashButton.classList.remove('element__trash-button_disabled');
     }
     trashButton.addEventListener('click', () => {
-        deleteMyCard(card._id)
+        api.deleteMyCard(card._id)
         .then((res) => {
             cardElement.remove();
         })

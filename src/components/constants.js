@@ -1,3 +1,5 @@
+import Api from './ApiNew.js';
+
 export const  content = document.querySelector('.content');
 
 export const  editPopup = document.querySelector('#popup-edit');
@@ -32,3 +34,13 @@ export const  obj = {
   inputErrorClass: 'popup__input_type_error',
   errorClass: 'popup__input-error_active'
 }
+
+export const config = {
+  baseUrl: 'https://mesto.nomoreparties.co/v1/plus-cohort-21',
+  headers: {
+      authorization: '5832d533-117d-41c2-950f-4a452b9fc5a1',
+      'Content-Type': 'application/json'
+  }
+}
+
+export const api = new Api(config);

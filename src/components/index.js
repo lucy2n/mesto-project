@@ -6,6 +6,9 @@ import { fetchCards, fetchProfileInfo, updateProfileInfo, postNewCard, updateAva
 import { handleSubmit } from './utils';
 import {editPopup, addPopup, avatarPopup, closeButtons, editForm, nameInput, jobInput, editButton, addButton, editAvatarButton, profileName, profileSubline, profileAvatar, avatarFormElement, addFormElement, cardName, cardLink, obj, avatarInput} from './constants';
 
+import {api} from "./constants";
+
+
 export let profileId = null;
 
 closeButtons.forEach((button) => {
@@ -22,7 +25,7 @@ closeButtons.forEach((button) => {
 });
 
 const loadData = () => {
-  Promise.all([fetchProfileInfo(), fetchCards()])
+  Promise.all([api.fetchProfileInfo(), api.fetchCards()])
   .then(([profileInfo, initialCards]) => {
     profileName.textContent = profileInfo.name;
     profileSubline.textContent = profileInfo.about;
@@ -30,7 +33,6 @@ const loadData = () => {
     profileId = profileInfo._id;
 
     initialCards.reverse();
-    console.log(initialCards)
     initialCards.forEach((place) => {
       addCard(place, profileId);
     });
@@ -50,7 +52,7 @@ editButton.addEventListener('click', () => {
 
 const handleProfileFormSubmit = (evt) => {
   const makeRequest = () => {
-    return updateProfileInfo(nameInput.value, jobInput.value)
+    return api.updateProfileInfo(nameInput.value, jobInput.value)
     .then((res) => {
       profileName.textContent = res.name;
       profileSubline.textContent = res.about;
@@ -72,7 +74,7 @@ editAvatarButton.addEventListener('click', () => {
 
 const handleCardFormSubmit = (evt) => {
   const makeRequest = () => {
-    return postNewCard(cardName.value, cardLink.value)
+    return api.postNewCard(cardName.value, cardLink.value)
     .then((res) => {
       addCard(res, profileId);
       closePopup(addPopup);
@@ -85,7 +87,7 @@ addFormElement.addEventListener('submit', handleCardFormSubmit);
 
 const handleAvatarFormSubmit = (evt) => {
   const makeRequest = () => {
-    return updateAvatar(avatarInput.value)
+    return api.updateAvatar(avatarInput.value)
       .then((res) => {
         profileAvatar.src = res.avatar;
         closePopup(avatarPopup);
