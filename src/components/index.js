@@ -1,10 +1,7 @@
 import '../pages/index.css';
-import { openPopup, closePopup, openCardPopup } from './modal';
-import { enableValidation } from './validate';
-import { addCard} from './card';
-// import { fetchCards, fetchProfileInfo, updateProfileInfo, postNewCard, updateAvatar } from './api';
+import { closePopup, openCardPopup } from './modal';
 import { handleSubmit } from './utils';
-import {editPopup, addPopup, avatarPopup, closeButtons, editForm, nameInput, jobInput, editButton, addButton, editAvatarButton, profileName, profileSubline, profileAvatar, avatarFormElement, addFormElement, cardName, cardLink, obj, avatarInput} from './constants';
+import { closeButtons, editForm, nameInput, jobInput, editButton, addButton, editAvatarButton, profileName, profileSubline, profileAvatar, avatarFormElement, addFormElement, cardName, cardLink, obj, avatarInput} from './constants';
 
 import {api} from "./constants";
 import Card from './CardNew.js';
