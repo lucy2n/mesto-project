@@ -1,7 +1,7 @@
 import {api} from "./constants.js";
 
 export default class Card {
-    constructor( data , profileId, openCardPopup, selector) {
+    constructor( data , profileId, {openCardPopup}, selector) {
         this._id = data._id;
         this._name = data.name;
         this._link = data.link;

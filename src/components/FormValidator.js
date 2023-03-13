@@ -49,7 +49,7 @@ export default class FormValidator {
         }
     };
     
-    _setEventListeners() {
+    enableValidation() {
         const inputList = Array.from(this._formElement.querySelectorAll(this._options.inputSelector));
         const buttonElement = this._formElement.querySelector(this._options.submitButtonSelector);
         this._toggleButton(inputList, buttonElement);
@@ -63,13 +63,6 @@ export default class FormValidator {
                 this._isValid(input);
                 this._toggleButton(inputList, buttonElement);
             }); 
-        });
-    };
-    
-    enableValidation() {
-        const formList = Array.from(document.querySelectorAll(this._options.formSelector));
-        formList.forEach((form) => {
-            this._setEventListeners();
         });
     };
 }
