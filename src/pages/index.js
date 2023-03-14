@@ -1,5 +1,5 @@
 import "../index.css";
-import { handleSubmit } from "../ulits/utils";
+import { handleSubmit } from "../ulits/utils.js";
 import {
   editForm,
   nameInput,
@@ -14,9 +14,10 @@ import {
   cardLink,
   obj,
   avatarInput,
-} from "../ulits/constants";
+  config,
+} from "../ulits/constants.js";
 
-import { api } from "../ulits/constants";
+import Api from "../components/Api.js";
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
@@ -26,7 +27,9 @@ import UserInfo from "../components/UserInfo.js";
 
 export let profileId = null;
 
-const userInfo = new UserInfo({//UserInfo - объявляем класс
+export const api = new Api(config);
+
+const userInfo = new UserInfo({
   profileName: ".profile__name",
   profileDescription: ".profile__author-subline",
 });
@@ -34,29 +37,13 @@ const userInfo = new UserInfo({//UserInfo - объявляем класс
 const cardImagePopup = new PopupWithImage(".image-popup");
 cardImagePopup.setEventListeners();
 
-/* closeButtons.forEach((button) => {
-    const popup = button.closest('.popup');
-    button.addEventListener('click', () => {
-        closePopup(popup);
-    });
-
-    popup.addEventListener('mousedown', (evt) => {
-        if(evt.target.classList.contains('popup')) {
-            closePopup(evt.currentTarget)
-        }
-    });
-}); */
-
 const loadData = () => {
   Promise.all([api.fetchProfileInfo(), api.fetchCards()])
     .then(([profileInfo, initialCards]) => {
-      userInfo.setUserInfo({ //UserInfo - вызываем метод при 1 отрисовке и передаем ему данные для вставки в HTML
+      userInfo.setUserInfo({
         name: profileInfo.name,
         info: profileInfo.about,
       });
-
-      //profileName.textContent = profileInfo.name;
-      //profileSubline.textContent = profileInfo.about;
 
       profileAvatar.src = profileInfo.avatar;
       profileId = profileInfo._id;
@@ -90,12 +77,10 @@ const loadData = () => {
 };
 
 const setupEditForm = () => {
-  const dataProfilInfo = userInfo.getUserInfo(); //UserInfo получаем объект селекторов для вставки
+  const dataProfilInfo = userInfo.getUserInfo();
 
   nameInput.value = dataProfilInfo.name;
   jobInput.value = dataProfilInfo.info;
-  //nameInput.value = profileName.textContent ;
-  //jobInput.value = profileSubline.textContent ;
 };
 
 editButton.addEventListener("click", () => {
@@ -106,12 +91,10 @@ editButton.addEventListener("click", () => {
         return api
           .updateProfileInfo(nameInput.value, jobInput.value)
           .then((res) => {
-            userInfo.setUserInfo({ //UserInfo - получаем ответ от сервера с новыми данными и отправляем методу для отрисовки
+            userInfo.setUserInfo({
               name: res.name,
-              info: res.about
-            })
-            //profileName.textContent = res.name;
-            //profileSubline.textContent = res.about;
+              info: res.about,
+            });
             editProfilePopup.close();
           });
       };
@@ -158,7 +141,6 @@ addButton.addEventListener("click", () => {
       handleSubmit(makeRequest, evt);
     },
   });
-  //
 
   const addCardValidation = new FormValidator(obj, addFormElement);
   addCardValidation.enableValidation();
