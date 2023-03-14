@@ -1,75 +1,69 @@
-/* import { request } from "./utils";
+import { request } from "../ulits/utils";
 
-
-const config = {
-    baseUrl: 'https://mesto.nomoreparties.co/v1/plus-cohort-21',
-    headers: {
-        authorization: '5832d533-117d-41c2-950f-4a452b9fc5a1',
-        'Content-Type': 'application/json'
+export default class Api {
+    constructor(options) {
+      this._options = options;
     }
-  }
+    
+    fetchCards() {//Запрос карточек с серва при загрузке
+        return request(`${this._options.baseUrl}/cards`, { headers: this._options.headers})
+    }
 
- const fetchCards = () => {
-    return request(`${config.baseUrl}/cards`, { headers: config.headers})
-          .then(result => result)
-}
+    fetchProfileInfo() {//Запрос инфы профиля при открытии попап
+        return request(`${this._options.baseUrl}/users/me`, { headers: this._options.headers})
+    }
 
- const fetchProfileInfo = () => {
-    return request(`${config.baseUrl}/users/me`, { headers: config.headers})
-        .then(result => result)
-}
-
-const updateProfileInfo = (name, about) => {
-    return request(`${config.baseUrl}/users/me`, { 
-        method: 'PATCH',
-        headers: config.headers,
-        body: JSON.stringify({
-            name: name,
-            about: about
+    updateProfileInfo(name, about) { //Отправляем новую инфу о профиле на серв (и получаем ответ)
+        return request(`${this._options.baseUrl}/users/me`, { 
+            method: 'PATCH',
+            headers: this._options.headers,
+            body: JSON.stringify({
+                name: name,
+                about: about
+            })
         })
-    })
-}
+    }
 
-const postNewCard = (name, link) => {
-    return request(`${config.baseUrl}/cards`, { 
-        method: 'POST',
-        headers: config.headers,
-        body: JSON.stringify({
-            name: name,
-            link: link
+    postNewCard(name, link) { //Отправляем New карточку на сервер (и получаем ответ с новой)
+        return request(`${this._options.baseUrl}/cards`, { 
+            method: 'POST',
+            headers: this._options.headers,
+            body: JSON.stringify({
+                name: name,
+                link: link
+            })
         })
-    })
-}
-
-const deleteMyCard = (cardId) => {
-    return request(`${config.baseUrl}/cards/${cardId}`, { 
-        method: 'DELETE',
-        headers: config.headers
-    })
-}
-
-const addLike = (cardId) => {
-    return request(`${config.baseUrl}/cards/likes/${cardId}`, { 
-        method: 'PUT',
-        headers: config.headers
-    })
-}
-
-const deleteLike = (cardId) => {
-    return request(`${config.baseUrl}/cards/likes/${cardId}`, { 
-        method: 'DELETE',
-        headers: config.headers
-    })
-}
-
-const updateAvatar = (avatar) => {
-    return request(`${config.baseUrl}/users/me/avatar`, { 
-        method: 'PATCH',
-        headers: config.headers,
-        body: JSON.stringify({
-            avatar : avatar
+    }
+    
+    deleteMyCard(cardId) { //Удаляем карточку (И получаем ответ)
+        return request(`${this._options.baseUrl}/cards/${cardId}`, { 
+            method: 'DELETE',
+            headers: this._options.headers
         })
-    })
+    }
+    
+    addLike(cardId) { //Добавляем лайк
+        return request(`${this._options.baseUrl}/cards/likes/${cardId}`, { 
+            method: 'PUT',
+            headers: this._options.headers
+        })
+    }
+    
+    deleteLike(cardId) { //удаляем лайк
+        return request(`${this._options.baseUrl}/cards/likes/${cardId}`, { 
+            method: 'DELETE',
+            headers: this._options.headers
+        })
+    }
+    
+    updateAvatar(avatar) { // Обновляем аватар
+        return request(`${this._options.baseUrl}/users/me/avatar`, { 
+            method: 'PATCH',
+            headers: this._options.headers,
+            body: JSON.stringify({
+                avatar: avatar
+            })
+        })
+    }
 }
-
-export {fetchCards, fetchProfileInfo, updateProfileInfo, postNewCard, deleteMyCard, addLike, deleteLike, updateAvatar } */
+  

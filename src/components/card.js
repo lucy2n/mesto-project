@@ -1,66 +1,106 @@
-// import { openCardPopup } from "./modal";
-// import {api} from "./constants";
+import {api} from "../ulits/constants.js";
 
-// export const elements = document.querySelector('.elements');
+export default class Card {
+    constructor( data , profileId, {openCardPopup}, selector) {
+        this._id = data._id;
+        this._name = data.name;
+        this._link = data.link;
+        this._owner = data.owner;
+        this._likes = data.likes;
+        this._isLiked = this._likes.some((user) => { //НАш ли лайк
+            return user._id == profileId;
+        });
+        this._isOwner = profileId == this._owner._id//Наша ли карточка;
+        this._openCardPopup = openCardPopup;
+        this._selector = selector;
 
-// const createCard = (card, profileId) => {
-//     const cardTemplate = document.querySelector('#card-template').content;
-//     const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
-//     const trashButton = cardElement.querySelector('.element__trash-button');
-//     const likeButton = cardElement.querySelector('.element__like-button');
-//     const likeCount = cardElement.querySelector('.element__like-count');
+        this._api = api;
+    }
 
-//     const isLiked = card.likes.some((user) => {
-//         return user._id == profileId;
-//     })
+    _getCardElement() {
+        const cardElement = document
+        .querySelector(this._selector)
+        .content
+        .querySelector('.element')
+        .cloneNode(true);
 
-//     if(isLiked) {
-//         likeButton.classList.add('element__like-button_active');
-//     } 
+        return cardElement
+    }
 
-//     likeButton.addEventListener('click', (evt) => {
-//         if(!evt.target.classList.contains('element__like-button_active')) {
-//            api.addLike(card._id)
-//            .then((res) => {
-//             evt.target.classList.toggle('element__like-button_active');
-//             likeCount.textContent = res.likes.length;
-//            }) 
-//            .catch(err => console.log(err));
-//         } else {
-//             api.deleteLike(card._id)
-//             .then((res) => {
-//                 evt.target.classList.toggle('element__like-button_active');
-//                 likeCount.textContent = res.likes.length;
-//             })
-//             .catch(err => console.log(err));
+    _like(evt, cardElement) {
+        const likeCount = cardElement.querySelector('.element__like-count');
+        
+        if (this._isLiked) {
+            this._api.deleteLike(this._id)
+            .then((res) => {
+                this._tapLikeButton(evt, likeCount, res);
+            })
+            .catch(err => console.log(err));
+        } else {
+            this._api.addLike(this._id)
+            .then((res) => {
+                this._tapLikeButton(evt, likeCount, res);
+            })
+            .catch(err => console.log(err));
+        }
+    }
 
-//         }
-//     });
+    _tapLikeButton(evt, likeCount, res) {
+        this._isLiked = !this._isLiked;
+        evt.target.classList.toggle('element__like-button_active');
+        likeCount.textContent = res.likes.length;
+    }
 
-//     trashButton.classList.add('element__trash-button_disabled');
-//     if (profileId == card.owner._id) {
-//         trashButton.classList.remove('element__trash-button_disabled');
-//     }
-//     trashButton.addEventListener('click', () => {
-//         api.deleteMyCard(card._id)
-//         .then((res) => {
-//             cardElement.remove();
-//         })
-//         .catch(err => console.log(err));
-//     });
-//     const cardImage = cardElement.querySelector('.element__image');
+    _setEventListeners(cardElement) {
+        const likeButton = cardElement.querySelector('.element__like-button');
+        const trashButton = cardElement.querySelector('.element__trash-button');
+        const cardImage = cardElement.querySelector('.element__image');
+
+        likeButton.addEventListener('click', (evt) => {
+            this._like(evt, cardElement)
+        });
+
+        trashButton.addEventListener('click', () => {
+            this._api.deleteMyCard(this._id)
+            .then(() => {
+                cardElement.remove();
+            })
+            .catch(err => console.log(err));
+        });
+
+        cardImage.addEventListener('click', () => {
+            this._openCardPopup(this._name, this._link);
+        });
+    }
+
+    createCard() {
+        const cardElement = this._getCardElement()
+        const likeButton = cardElement.querySelector('.element__like-button');
+        const trashButton = cardElement.querySelector('.element__trash-button');
+        const likeCount = cardElement.querySelector('.element__like-count');
+
+        if(this._isLiked) {
+            likeButton.classList.add('element__like-button_active');
+        } 
+        
+        if(!this._isOwner) {
+            trashButton.classList.add('element__trash-button_disabled');
+        }
+
+        this._setEventListeners(cardElement);
+
+        const cardImage = cardElement.querySelector('.element__image');
+        likeCount.textContent = this._likes.length;
+        cardImage.src = this._link;
+        cardImage.alt = this._name;
+        cardElement.querySelector('.element__title').textContent = this._name;
+
+        return cardElement;
+    }
     
-//     likeCount.textContent = card.likes.length;
-//     cardImage.src = card.link;
-//     cardImage.alt = card.name;
-//     cardImage.addEventListener('click', () => {
-//         openCardPopup(card.name, card.link);
-//     });
-//     cardElement.querySelector('.element__title').textContent = card.name;
-//     return cardElement;
-// }
-
-//  export const addCard = (card, profileId) => {
-//     const cardElement = createCard(card, profileId);
-//     elements.prepend(cardElement);
-// }
+    // addCard() { // TODO: За вставку карточки в разметку должен отвечать класс Section
+    //     const cardElement = this._createCard();
+    //     //document.querySelector('.elements').prepend(cardElement);
+        
+    // }
+}

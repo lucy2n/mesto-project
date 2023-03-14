@@ -1,16 +1,12 @@
-import "../pages/index.css";
-import { closePopup, openCardPopup } from "./modal";
-import { handleSubmit } from "./utils";
+import "../index.css";
+import { handleSubmit } from "../ulits/utils";
 import {
-  closeButtons,
   editForm,
   nameInput,
   jobInput,
   editButton,
   addButton,
   editAvatarButton,
-  profileName,
-  profileSubline,
   profileAvatar,
   avatarFormElement,
   addFormElement,
@@ -18,15 +14,15 @@ import {
   cardLink,
   obj,
   avatarInput,
-} from "./constants";
+} from "../ulits/constants";
 
-import { api } from "./constants";
-import Card from "./CardNew.js";
-import FormValidator from "./FormValidator.js";
-import Section from "./Section.js";
-import PopupWithForm from "./PopupWithForm.js";
-import PopupWithImage from "./PopupWithImage.js";
-import UserInfo from "./UserInfo.js";
+import { api } from "../ulits/constants";
+import Card from "../components/Card.js";
+import FormValidator from "../components/FormValidator.js";
+import Section from "../components/Section.js";
+import PopupWithForm from "../components/PopupWithForm.js";
+import PopupWithImage from "../components/PopupWithImage.js";
+import UserInfo from "../components/UserInfo.js";
 
 export let profileId = null;
 

@@ -1,4 +1,4 @@
-import Api from './ApiNew.js';
+import Api from '../components/Api.js';
 
 export const  content = document.querySelector('.content');
 
