@@ -1,24 +1,22 @@
-import { request } from "../ulits/utils.js";
-
 export default class Api {
   constructor(options) {
     this._options = options;
   }
 
   fetchCards() {
-    return request(`${this._options.baseUrl}/cards`, {
+    return this._request(`${this._options.baseUrl}/cards`, {
       headers: this._options.headers,
     });
   }
 
   fetchProfileInfo() {
-    return request(`${this._options.baseUrl}/users/me`, {
+    return this._request(`${this._options.baseUrl}/users/me`, {
       headers: this._options.headers,
     });
   }
 
   updateProfileInfo(name, about) {
-    return request(`${this._options.baseUrl}/users/me`, {
+    return this._request(`${this._options.baseUrl}/users/me`, {
       method: "PATCH",
       headers: this._options.headers,
       body: JSON.stringify({
@@ -29,7 +27,7 @@ export default class Api {
   }
 
   postNewCard(name, link) {
-    return request(`${this._options.baseUrl}/cards`, {
+    return this._request(`${this._options.baseUrl}/cards`, {
       method: "POST",
       headers: this._options.headers,
       body: JSON.stringify({
@@ -40,28 +38,28 @@ export default class Api {
   }
 
   deleteMyCard(cardId) {
-    return request(`${this._options.baseUrl}/cards/${cardId}`, {
+    return this._request(`${this._options.baseUrl}/cards/${cardId}`, {
       method: "DELETE",
       headers: this._options.headers,
     });
   }
 
   addLike(cardId) {
-    return request(`${this._options.baseUrl}/cards/likes/${cardId}`, {
+    return this._request(`${this._options.baseUrl}/cards/likes/${cardId}`, {
       method: "PUT",
       headers: this._options.headers,
     });
   }
 
   deleteLike(cardId) {
-    return request(`${this._options.baseUrl}/cards/likes/${cardId}`, {
+    return this._request(`${this._options.baseUrl}/cards/likes/${cardId}`, {
       method: "DELETE",
       headers: this._options.headers,
     });
   }
 
   updateAvatar(avatar) {
-    return request(`${this._options.baseUrl}/users/me/avatar`, {
+    return this._request(`${this._options.baseUrl}/users/me/avatar`, {
       method: "PATCH",
       headers: this._options.headers,
       body: JSON.stringify({
@@ -69,4 +67,15 @@ export default class Api {
       }),
     });
   }
+
+  _checkResponse = (res) => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+  };
+  
+  _request = (url, options) => {
+    return fetch(url, options).then(this._checkResponse);
+  };
 }
