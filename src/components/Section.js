@@ -14,4 +14,8 @@ export default class Section {
   addItem(element) {
     this._selector.prepend(element);
   }
+
+  updateItems(items) {
+    this._items.push(...items);
+  }
 }

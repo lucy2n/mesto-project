@@ -15,24 +15,24 @@ export default class Api {
     });
   }
 
-  updateProfileInfo(name, about) {
+  updateProfileInfo(data) {
     return this._request(`${this._options.baseUrl}/users/me`, {
       method: "PATCH",
       headers: this._options.headers,
       body: JSON.stringify({
-        name: name,
-        about: about,
+        name: data.name,
+        about: data.about,
       }),
     });
   }
 
-  postNewCard(name, link) {
+  postNewCard(data) {
     return this._request(`${this._options.baseUrl}/cards`, {
       method: "POST",
       headers: this._options.headers,
       body: JSON.stringify({
-        name: name,
-        link: link,
+        name: data.name,
+        link: data.link,
       }),
     });
   }
@@ -58,24 +58,24 @@ export default class Api {
     });
   }
 
-  updateAvatar(avatar) {
+  updateAvatar(data) {
     return this._request(`${this._options.baseUrl}/users/me/avatar`, {
       method: "PATCH",
       headers: this._options.headers,
       body: JSON.stringify({
-        avatar: avatar,
+        avatar: data.avatar,
       }),
     });
   }
 
-  _checkResponse = (res) => {
+  _checkResponse(res) {
     if (res.ok) {
       return res.json();
     }
     return Promise.reject(`Ошибка: ${res.status}`);
   };
-  
-  _request = (url, options) => {
+
+  _request(url, options) {
     return fetch(url, options).then(this._checkResponse);
   };
 }
