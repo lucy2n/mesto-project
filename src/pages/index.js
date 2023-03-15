@@ -5,7 +5,6 @@ import {
   editButton,
   addButton,
   editAvatarButton,
-  profileAvatar,
   avatarFormElement,
   addFormElement,
   obj,
@@ -61,6 +60,7 @@ const editProfilePopup = new PopupWithForm({
     handleSubmit(makeRequest, evt);
   },
 });
+editProfilePopup.setEventListeners();
 
 const editProfileValidation = new FormValidator(obj, editForm);
 editProfileValidation.enableValidation();
@@ -80,6 +80,7 @@ const addCardPopup = new PopupWithForm({
     handleSubmit(makeRequest, evt);
   },
 });
+addCardPopup.setEventListeners();
 
 const addCardValidation = new FormValidator(obj, addFormElement);
 addCardValidation.enableValidation();
@@ -91,13 +92,19 @@ const editAvatarPopup = new PopupWithForm({
     const makeRequest = () => {
       return api.updateAvatar(data)
       .then((res) => {
-        profileAvatar.src = res.avatar;
+        userInfo.setUserInfo({
+          name: res.name,
+          info: res.about,
+          avatar: res.avatar
+        });
         editAvatarPopup.close();
       });
     };
     handleSubmit(makeRequest, evt);
   },
 });
+
+editAvatarPopup.setEventListeners();
 
 const avatarValidation = new FormValidator(obj, avatarFormElement);
 avatarValidation.enableValidation();
@@ -148,18 +155,15 @@ const setupEditForm = () => {
 
 editButton.addEventListener("click", () => {
   editProfilePopup.open();
-  editProfilePopup.setEventListeners();
   setupEditForm();
 });
 
 addButton.addEventListener("click", () => {
   addCardPopup.open();
-  addCardPopup.setEventListeners();
 });
 
 editAvatarButton.addEventListener("click", () => {
   editAvatarPopup.open();
-  editAvatarPopup.setEventListeners();
 });
 
 loadData();
