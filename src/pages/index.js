@@ -53,6 +53,7 @@ const editProfilePopup = new PopupWithForm({
           userInfo.setUserInfo({
             name: res.name,
             info: res.about,
+            avatar: res.avatar
           });
           editProfilePopup.close();
         });
