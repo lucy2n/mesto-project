@@ -69,7 +69,6 @@ const addCardPopup = new PopupWithForm({
   selector: ".add-popup",
   handleSubmit: (evt) => {
     const data = addCardPopup._getInputValues();
-    console.log(data);
     const makeRequest = () => {
       return api.postNewCard(data)
       .then((card) => {
