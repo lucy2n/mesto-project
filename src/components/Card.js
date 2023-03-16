@@ -1,7 +1,5 @@
-import { api } from "../pages/index.js";
-
 export default class Card {
-  constructor(data, profileId, { openCardPopup }, selector) {
+  constructor(data, profileId, { deleteLike, addLike, deleteMyCard, openCardPopup }, selector) {
     this._id = data._id;
     this._name = data.name;
     this._link = data.link;
@@ -11,10 +9,11 @@ export default class Card {
       return user._id == profileId;
     });
     this._isOwner = profileId == this._owner._id;
+    this._deleteLike = deleteLike;
+    this._addLike = addLike;
+    this._deleteMyCard = deleteMyCard;
     this._openCardPopup = openCardPopup;
     this._selector = selector;
-
-    this._api = api;
   }
 
   _getCardElement() {
@@ -28,15 +27,13 @@ export default class Card {
 
   _like(evt) {
     if (this._isLiked) {
-      this._api
-        .deleteLike(this._id)
+        this._deleteLike(this._id)
         .then((res) => {
           this._tapLikeButton(evt, res);
         })
         .catch((err) => console.log(err));
     } else {
-      this._api
-        .addLike(this._id)
+        this._addLike(this._id)
         .then((res) => {
           this._tapLikeButton(evt, res);
         })
@@ -50,16 +47,15 @@ export default class Card {
     this._likeCount.textContent = res.likes.length;
   }
 
-  _setEventListeners() {
+  _setEventListeners(cardElement) {
     this._likeButton.addEventListener("click", (evt) => {
       this._like(evt);
     });
 
     this._trashButton.addEventListener("click", () => {
-      this._api
-        .deleteMyCard(this._id)
+        this._deleteMyCard(this._id)
         .then(() => {
-          this._cardElement.remove();
+          cardElement.remove();
         })
         .catch((err) => console.log(err));
     });

@@ -114,15 +114,23 @@ cardImagePopup.setEventListeners();
 
 const createCard = (item) => {
   const cardNew = new Card(
-               item,
-               profileId,
-               {
-                 openCardPopup: (name, about) => {
-                   cardImagePopup.open(name, about);
-                 },
-               },
-               "#card-template"
-             );
+    item,
+    profileId,
+    { deleteLike: (cardId) => {
+      return api.deleteLike(cardId);
+    },
+    addLike: (cardId) => {
+      return api.addLike(cardId);
+    },
+    deleteMyCard: (cardId) => {
+      return api.deleteMyCard(cardId);
+    }, 
+      openCardPopup: (name, about) => {
+        cardImagePopup.open(name, about);
+      },
+    },
+    "#card-template"
+  );
              const cardElement = cardNew.createCard();
    return cardElement
  }
