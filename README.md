@@ -1,4 +1,10 @@
 # 1. Проект: Место
+<img width="1440" alt="image" src="https://github.com/lucy2n/mesto-project/assets/117926370/4637935b-3525-48a9-94de-28cdc773b188">
+<img width="1440" alt="image" src="https://github.com/lucy2n/mesto-project/assets/117926370/076c11fb-bb32-4ae3-ae53-303bd7f75d3c">
+<img width="1440" alt="image" src="https://github.com/lucy2n/mesto-project/assets/117926370/f3d8c57d-6ba2-4c02-a14d-a379c608fd2e">
+
+
+
 ## 2. Функциональность проекта и его описание:
    * Интерактивная страница с возможностью добавления карточек с картинками<br>
    * На каждую карточку можно поставить и удалить лайк
